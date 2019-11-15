@@ -20,7 +20,6 @@ def br_grossup(
     The grossup operation implemented by this function represents a fairly
     common situation for loan calculations inside Brazilian context, where
 
-
     If :math:`S` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
     fee, :math:`g` is the service fee and :math:`(n_1,n_2,\ldots,n_k)` is the
