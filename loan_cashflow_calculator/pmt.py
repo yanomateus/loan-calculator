@@ -2,7 +2,7 @@ from typing import List
 
 
 # TODO: principal and return should be modeled as monetary quantities
-def pmt(
+def constant_return_pmt(
     principal: float,
     daily_interest_rate: float,
     return_days: List[int]
