@@ -3,8 +3,8 @@ import numpy.testing as npt
 
 from loan_cashflow_calculator.amortization_schedule import (
     ProgressivePriceSchedule,
-    ConstantAmortizationSchedule
-)
+    ConstantAmortizationSchedule,
+    RegressivePriceSchedule)
 
 
 def test_constant_amortization_schedule():
@@ -61,6 +61,8 @@ def test_price_amortization_schedule():
          1000.00, 1000.00, 1000.00, 1000.00, 1000.00],
         dtype=float
     )
+
+    r_schedule = RegressivePriceSchedule(principal, daily_interest_rate, return_days)
 
     npt.assert_almost_equal(schedule.amortizations, expected_amortizations,
                             decimal=2)

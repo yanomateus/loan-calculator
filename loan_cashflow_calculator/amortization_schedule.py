@@ -43,6 +43,12 @@ class BasePriceSchedule(BaseSchedule):
             return_days
         )
 
+        self.pmt = constant_return_pmt(
+            principal,
+            daily_interest_rate,
+            return_days
+        )
+
         self.due_payments = self.calculate_due_payments()
         self.balance = self.calculate_balance()
 
@@ -68,14 +74,18 @@ class BasePriceSchedule(BaseSchedule):
 
         This equation can be directly deduced from the recursive definition
         of the balance given by
+
         .. math::
+
             b_i =
             \left\{
             \begin{aligned}
                 b_{i-1}(1+d)^{n_i-n_{i-1}} - P & \mathrm{se}\ i,1\leq i\leq k \\
                 S & \mathrm{se}\ i = 0
             \end{aligned}
-            \right..
+            \right.,
+
+        where :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k))`.
         """
 
         # variables are renamed to make the math more explicit
@@ -101,14 +111,8 @@ class BasePriceSchedule(BaseSchedule):
         Since this is a Price schedule, all due payments have the same value.
         """
 
-        pmt = constant_return_pmt(
-            self.principal,
-            self.daily_interest_rate,
-            self.return_days
-        )
-
         return np.array(
-            [pmt for _ in self.return_days],
+            [self.pmt for _ in self.return_days],
             dtype=float
         )
 
@@ -191,7 +195,7 @@ class ProgressivePriceSchedule(BasePriceSchedule):
         )
 
 
-class RegressivePriceSchedule(BaseSchedule):
+class RegressivePriceSchedule(BasePriceSchedule):
     """Implement regressive Price amortization schedule.
 
     The regressive Price amortization schedule defines a schedule where all
@@ -234,17 +238,11 @@ class RegressivePriceSchedule(BaseSchedule):
         :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k)`
         """
 
-        pmt = constant_return_pmt(
-            self.principal,
-            self.daily_interest_rate,
-            self.return_days
-        )
-
         # variables are renamed to make the math more explicit
         d = self.daily_interest_rate
 
         return np.array(
-            [pmt / (1 + d) ** n for n in range(self.return_days)],
+            [self.pmt / (1 + d) ** n for n in self.return_days],
             dtype=float
         )
 
@@ -274,7 +272,7 @@ class RegressivePriceSchedule(BaseSchedule):
         d = self.daily_interest_rate
 
         return np.array(
-            [pmt - pmt / (1 + d) ** n for n in self.return_days],
+            [pmt * (1 - 1.0 / (1 + d)) ** n for n in self.return_days],
             dtype=float
         )
 
@@ -408,6 +406,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
             [b * ((1 + d) ** (n - m) - 1) + p / k
              for b, n, m in zip(self.balance[:-1],
                                 self.return_days,
-                                [0] + self.return_days[:-1])]
+                                [0] + self.return_days[:-1])],
+            dtype=float
         )
 

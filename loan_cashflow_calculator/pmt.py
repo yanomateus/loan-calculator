@@ -1,12 +1,5 @@
-from typing import List
-
-
 # TODO: principal and return should be modeled as monetary quantities
-def constant_return_pmt(
-    principal: float,
-    daily_interest_rate: float,
-    return_days: List[int]
-) -> float:
+def constant_return_pmt(principal, daily_interest_rate, return_days):
     """Calculate the PMT (payment value) for the given parameters.
 
     If :math:`S` is the principal, :math:`d` is the daily interest rate and
@@ -14,6 +7,7 @@ def constant_return_pmt(
     start reference date, then the PMT is given by
 
     .. math::
+
         \mathrm{PMT}\ (S, d, (n_1,\ldots,n_k)) =
         \frac{S}{\sum\frac{1}{(1+d)^{n_j}}},
 
@@ -43,7 +37,9 @@ def constant_return_pmt(
         raise ValueError('Principal must be a positive real number.')
 
     if daily_interest_rate < 0.0:
-        raise ValueError('Daily interest rate must be a non-negative real number.')
+        raise ValueError(
+            'Daily interest rate must be a non-negative real number.'
+        )
 
     if any(map(lambda x: x < 0, return_days)):
         raise ValueError('Return days must be non-negative.')
