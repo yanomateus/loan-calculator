@@ -8,7 +8,7 @@ to very specific mathematical rule.
 
 
 # TODO:properly handle monetary quantities
-def br_regressive_price_grossup(
+def br_iof_regressive_price_grossup(
         net_principal,
         daily_interest_rate,
         daily_iof_fee,
@@ -88,7 +88,7 @@ def br_regressive_price_grossup(
 
 
 # TODO:properly handle monetary quantities
-def br_progressive_price_grossup(
+def br_iof_progressive_price_grossup(
     net_principal,
     daily_interest_rate,
     daily_iof_fee,
@@ -162,6 +162,68 @@ def br_progressive_price_grossup(
     iof_coef = sum(
         float(min(n * d_iof, 0.015)) / (1 + d) ** n
         for n in pmt_days[::-1]
+    )
+
+    return p / (1 - (iof_coef / transport_coef) - c_iof - s_fee)
+
+
+def br_iof_constant_amortization_grossup(
+        net_principal,
+        daily_interest_rate,
+        daily_iof_fee,
+        complementary_iof_fee,
+        return_days,
+        service_fee
+):
+    """Calculate the grossup of the principal and given parameters.
+
+    This implements a grossup for which
+
+      - the principal is amortized according to a constant amortization
+        schedule
+      - the principal and the payments are taxed with IOF,
+      - a service fee is applied over the principal.
+
+    If :math:`S` is the principal, :math:`d` is the daily interest rate,
+    :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
+    fee, :math:`g` is the service fee and :math:`(n_1,n_2,\ldots,n_k)` is the
+    vector with the return dates, then the grossup is given by
+
+    .. math::
+        \mathrm{GROSSUP}\ (S, d, I^*, I^{**}, (n_1,\ldots,n_k), g)\ =
+        \frac{S}
+        {1
+         - \alpha
+         - I^{**}
+         - g
+        },
+
+    where
+
+    .. math::
+        \alpha :=
+        \frac{1}{k}
+        \frac{\sum_{j=1}^k \min(n_j\ I^*, 0.015)}
+             {\sum_{j=1}^k\frac{1}{(1+d)^{n_j}}}.
+
+    """
+
+    # variables are renamed to make the math more explicit
+    p = net_principal
+    d = daily_interest_rate
+    d_iof = daily_iof_fee
+    c_iof = complementary_iof_fee
+    s_fee = service_fee
+    pmt_days = return_days
+
+    # TODO:think of a better name for this coefficient
+    # transport coefficient
+    transport_coef = sum(1.0 / (1 + d) ** n for n in pmt_days)
+
+    # iof coefficient
+    iof_coef = sum(
+        float(min(n * d_iof, 0.015)) / len(pmt_days)
+        for n in pmt_days
     )
 
     return p / (1 - (iof_coef / transport_coef) - c_iof - s_fee)
