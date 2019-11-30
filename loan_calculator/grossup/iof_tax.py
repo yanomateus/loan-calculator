@@ -2,8 +2,9 @@
 
 The IOF tax (Imposto sobre Operações de Crédito, Câmbio e Seguro ou relativas a
 Títulos ou Valores Mobiliários) is a Brazilian tax incident over many financial
-operations. In particular, they apply over on operations, the borrower being
-either a legal or natural person.
+operations. In particular, they apply on loan operations, the borrower being
+either a legal or natural person. It is institutionalized by the law-decree
+Nº 6.306, from December 14th, 2007, as in the present date.
 
 This tax is composed by two parts: the tax over the principal and the tax over
 the amortizations.
