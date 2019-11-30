@@ -1,5 +1,5 @@
 from numpy.testing import assert_almost_equal
-from loan_cashflow_calculator.grossup.functions import br_iof_regressive_price_grossup, br_iof_progressive_price_grossup, \
+from loan_calculator.grossup.functions import br_iof_regressive_price_grossup, br_iof_progressive_price_grossup, \
     br_iof_constant_amortization_grossup
 
 

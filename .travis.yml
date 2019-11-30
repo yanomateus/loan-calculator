@@ -26,5 +26,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: yanomateus/loan_cashflow_calculator
+    repo: yanomateus/loan_calculator
     python: 3.8

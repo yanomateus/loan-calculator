@@ -1,7 +1,7 @@
 import numpy as np
 
-from loan_cashflow_calculator.pmt import constant_return_pmt
-from loan_cashflow_calculator.schedule.base import BaseSchedule
+from loan_calculator.pmt import constant_return_pmt
+from loan_calculator.schedule.base import BaseSchedule
 
 
 class BasePriceSchedule(BaseSchedule):

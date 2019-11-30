@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-"""Console script for loan_cashflow_calculator."""
+"""Console script for loan_calculator."""
 import sys
 import click
 
 
 @click.command()
 def main(args=None):
-    """Console script for loan_cashflow_calculator."""
+    """Console script for loan_calculator."""
     click.echo("Replace this message by putting your code into "
-               "loan_cashflow_calculator.cli.main")
+               "loan_calculator.cli.main")
     click.echo("See click documentation at https://click.palletsprojects.com/")
     return 0
 

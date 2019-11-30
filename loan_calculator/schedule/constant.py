@@ -1,6 +1,6 @@
 import numpy as np
 
-from loan_cashflow_calculator.schedule.base import BaseSchedule
+from loan_calculator.schedule.base import BaseSchedule
 
 
 class ConstantAmortizationSchedule(BaseSchedule):

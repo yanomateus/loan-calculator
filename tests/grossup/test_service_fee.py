@@ -1,6 +1,6 @@
 from numpy.testing import assert_almost_equal
 
-from loan_cashflow_calculator.grossup.service_fee import linear_service_fee
+from loan_calculator.grossup.service_fee import linear_service_fee
 
 
 def test_linear_service_fee():

@@ -1,6 +1,6 @@
 import pytest
 
-from loan_cashflow_calculator.pmt import constant_return_pmt
+from loan_calculator.pmt import constant_return_pmt
 
 
 def test_unitary_evaluation():

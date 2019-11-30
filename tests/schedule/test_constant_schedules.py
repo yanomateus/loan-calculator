@@ -1,6 +1,6 @@
 import numpy as np
 
-from loan_cashflow_calculator.schedule.constant import ConstantAmortizationSchedule
+from loan_calculator.schedule.constant import ConstantAmortizationSchedule
 
 
 def test_constant_amortization_schedule():

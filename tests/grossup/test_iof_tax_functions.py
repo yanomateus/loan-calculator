@@ -1,6 +1,6 @@
 from numpy.testing import assert_almost_equal
 
-from loan_cashflow_calculator.grossup.iof_tax import amortization_iof, complementary_iof, loan_iof
+from loan_calculator.grossup.iof_tax import amortization_iof, complementary_iof, loan_iof
 
 
 def test_amortization_iof():

@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import testing as npt
 
-from loan_cashflow_calculator.schedule.price import ProgressivePriceSchedule, RegressivePriceSchedule
+from loan_calculator.schedule.price import ProgressivePriceSchedule, RegressivePriceSchedule
 
 
 def test_progressive_price_amortization_schedule():
