@@ -151,20 +151,18 @@ class ProgressivePriceSchedule(BasePriceSchedule):
 
         .. math::
 
-            J_i = b_{i-1} ((1+d)^{n_i-n_{i-1}} - 1),
+            J_i = \frac{P}{(1+d)^{n_{k-i+1}}},
             \mathrm{for\ all}\ i,1\leq i\leq k,
 
-        where :math:`b_{i-1}` is the :math:`(i-1)`-th balance, :math:`d` is the
-        daily interest rate and :math:`n_1,\ldots,n_k` are the return days.
+        where :math:`d` is the daily interest rate, :math:`P` is the PMT,
+        and :math:`n_1,\ldots,n_k` are the return days.
         """
 
-        # variables are renamed to make the math more explicit
-        d = self.daily_interest_rate
-        r_days = self.return_days
-
         return np.array(
-            [b * ((1 + d) ** (n - m) - 1)
-             for b, n, m in zip(self.balance[:-1], r_days, [0] + r_days[:-1])],
+            [
+                self.pmt * (1.0 - 1.0 / (1 + self.daily_interest_rate) ** n)
+                for n in self.return_days[::-1]
+            ],
             dtype=float
         )
 
@@ -175,23 +173,19 @@ class ProgressivePriceSchedule(BasePriceSchedule):
 
         .. math::
 
-            A_i := P - b_{i-1}((1+d)^{n_i-n_{i-1}}-1)
+            A_i := \frac{P}{(1+d)^{n_{k-i+1}}},
+            \mathrm{for\ all}\ i,1\leq i\leq k,
 
-        where :math:`b_{i-1}` is the :math:`(i-1)`-th balance, :math:`d` is the
-        daily interest rate, :math:`n_1,\ldots,n_k` are the return days and
-        :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k))`.
+        where :math:`d` is the daily interest rate, :math:`n_1,\ldots,n_k`
+        are the return days and :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k))`.
         """
 
-        # variables are renamed to make the math more explicit
-        p = self.principal
-        d = self.daily_interest_rate
-        r_days = self.return_days
-
-        pmt = constant_return_pmt(p, d, r_days)
-
         return np.array(
-            [pmt - b * ((1 + d) ** (n - m) - 1)
-             for b, n, m in zip(self.balance[:-1], r_days, [0] + r_days[:-1])]
+            [
+                self.pmt / (1 + self.daily_interest_rate) ** n
+                for n in self.return_days[::-1]
+            ],
+            dtype=float
         )
 
 
@@ -328,7 +322,10 @@ class ConstantAmortizationSchedule(BaseSchedule):
         k = len(self.return_days)
 
         return np.array(
-            [self.principal * (1 - i / k) for i in range(k + 1)],
+            [
+                self.principal * (1 - i / k)
+                for i in range(k + 1)
+            ],
             dtype=float
         )
 
@@ -347,8 +344,10 @@ class ConstantAmortizationSchedule(BaseSchedule):
         """
 
         return np.array(
-            [self.principal / len(self.return_days)
-             for _ in self.return_days],
+            [
+                self.principal / len(self.return_days)
+                for _ in self.return_days
+            ],
             dtype=float
         )
 
