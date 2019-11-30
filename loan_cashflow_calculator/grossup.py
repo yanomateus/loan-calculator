@@ -167,6 +167,7 @@ def br_iof_progressive_price_grossup(
     return p / (1 - (iof_coef / transport_coef) - c_iof - s_fee)
 
 
+# TODO:properly handle monetary quantities
 def br_iof_constant_amortization_grossup(
         net_principal,
         daily_interest_rate,
@@ -190,6 +191,7 @@ def br_iof_constant_amortization_grossup(
     vector with the return dates, then the grossup is given by
 
     .. math::
+
         \mathrm{GROSSUP}\ (S, d, I^*, I^{**}, (n_1,\ldots,n_k), g)\ =
         \frac{S}
         {1
@@ -201,6 +203,7 @@ def br_iof_constant_amortization_grossup(
     where
 
     .. math::
+
         \alpha :=
         \frac{1}{k}
         \frac{\sum_{j=1}^k \min(n_j\ I^*, 0.015)}
