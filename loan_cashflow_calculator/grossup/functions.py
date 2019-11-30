@@ -7,7 +7,6 @@ to very specific mathematical rule.
 """
 
 
-# TODO:properly handle monetary quantities
 def br_iof_regressive_price_grossup(
         net_principal,
         daily_interest_rate,
@@ -87,7 +86,6 @@ def br_iof_regressive_price_grossup(
     return p / (1 - (iof_coef / transport_coef) - c_iof - s_fee)
 
 
-# TODO:properly handle monetary quantities
 def br_iof_progressive_price_grossup(
     net_principal,
     daily_interest_rate,
@@ -167,7 +165,6 @@ def br_iof_progressive_price_grossup(
     return p / (1 - (iof_coef / transport_coef) - c_iof - s_fee)
 
 
-# TODO:properly handle monetary quantities
 def br_iof_constant_amortization_grossup(
         net_principal,
         daily_interest_rate,
