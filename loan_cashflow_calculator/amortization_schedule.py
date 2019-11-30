@@ -80,8 +80,8 @@ class BasePriceSchedule(BaseSchedule):
             b_i =
             \left\{
             \begin{aligned}
-                b_{i-1}(1+d)^{n_i-n_{i-1}} - P & \mathrm{se}\ i,1\leq i\leq k \\
-                S & \mathrm{se}\ i = 0
+                b_{i-1}(1+d)^{n_i-n_{i-1}} - P & \mathrm{if}\ i,1\leq i\leq k \\
+                S & \mathrm{if}\ i = 0
             \end{aligned}
             \right.,
 
