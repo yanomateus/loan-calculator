@@ -44,6 +44,11 @@ paid and :math:`b_i` the balance after the :math:`i`-th payment, then
   - :math:`J_i = P - b_{i-1}((1+d)^{n_i-n_{i-1}}-1)`.
   - :math:`A_i = P - J_i`.
 
+.. math::
+
+    \mathrm{IOF}(S, I^*, I^{**}, (A_1,\ldots,A_k),(n_1,\ldots,n_k)) =
+    \sum_{i=1}^k A_i \min(n_i I^*,0.015) + SI^{**}
+
 Loan Cashflow Solver
 
 * Free software: MIT license
