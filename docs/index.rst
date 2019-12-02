@@ -1,20 +1,13 @@
-Welcome to Loan Cashflow Calculator's documentation!
-======================================
+Loan Calculator
+===============
+
+Sane Elementary Financial Mathematics for Loans.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-   readme
-   installation
-   usage
-   modules
-   contributing
-   authors
-   history
+   Instalation <instalation.rst>
+   Usage <usage.rst>
+   Elementary Financial Mathematics <maths.rst>
 
-Indices and tables
-==================
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
