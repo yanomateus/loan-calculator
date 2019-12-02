@@ -1,7 +1,8 @@
 import numpy as np
 from numpy import testing as npt
 
-from loan_calculator.schedule.price import ProgressivePriceSchedule, RegressivePriceSchedule
+from loan_calculator.schedule.price import (ProgressivePriceSchedule,
+                                            RegressivePriceSchedule)
 
 
 def test_progressive_price_amortization_schedule():
@@ -10,7 +11,11 @@ def test_progressive_price_amortization_schedule():
     daily_interest_rate = 0.03
     return_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-    schedule = ProgressivePriceSchedule(principal, daily_interest_rate, return_days)
+    schedule = ProgressivePriceSchedule(
+        principal,
+        daily_interest_rate,
+        return_days
+    )
 
     expected_amortizations = np.array(
         [744.09, 766.42, 789.41, 813.09, 837.48,
@@ -51,10 +56,14 @@ def test_progressive_price_amortization_schedule():
 def test_regressive_price_amortization_schedule():
     """Assert basic textbook scenario."""
     principal = 8530.20
-    daily_interest_rate = 0.03
-    return_days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    daily_interest_rate = 0.0009857789690617125  # yields 3% every 30 days
+    return_days = [30, 60, 90, 120, 150, 180, 210, 240, 270, 300]
 
-    schedule = RegressivePriceSchedule(principal, daily_interest_rate, return_days)
+    schedule = RegressivePriceSchedule(
+        principal,
+        daily_interest_rate,
+        return_days
+    )
 
     expected_amortizations = np.array(
         [970.87, 942.6, 915.14, 888.49, 862.61,
