@@ -14,7 +14,6 @@ class BasePriceSchedule(BaseSchedule):
     """
 
     def __init__(self, principal, daily_interest_rate, return_days):
-
         super(BasePriceSchedule, self).__init__(
             principal,
             daily_interest_rate,
@@ -42,10 +41,12 @@ class BasePriceSchedule(BaseSchedule):
         """Calculate the balance after each payment.
 
         Implements the balance as defined by
+
         .. math::
-            b_i = S(1+d)^{n_i}(1 - \frac{\sum_{j=1}^i\frac{1}{(1+d)^{n_j}}}
-                                        {\sum_{j=1}^k\frac{1}{(1+d)^{n_j}}}),
-            \mathrm{for}\ i,0\leq i\leq k
+
+            b_i := S(1+d)^{n_i}(1 - \\frac{\\sum_{j=1}^i\\frac{1}{(1+d)^{n_j}}}
+                                        {\\sum_{j=1}^k\\frac{1}{(1+d)^{n_j}}}),
+            \\mathrm{for}\\ i,0\\leq i\\leq k
 
         where :math:`S` is the principal, :math:`d` is the daily interest rate
         and :math:`n_1,\ldots,n_k` are the return days.
@@ -56,12 +57,13 @@ class BasePriceSchedule(BaseSchedule):
         .. math::
 
             b_i =
-            \left\{
-            \begin{aligned}
-                b_{i-1}(1+d)^{n_i-n_{i-1}} - P & \mathrm{if}\ i,1\leq i\leq k \\
-                S & \mathrm{if}\ i = 0
-            \end{aligned}
-            \right.,
+            \\left\\{
+            \\begin{aligned}
+                b_{i-1}(1+d)^{n_i-n_{i-1}} - P,
+                &\\ \\mathrm{if}\\ i,1\\leq i\\leq k \\\\
+                S, &\\ \\mathrm{if}\\ i = 0
+            \\end{aligned}
+            \\right.,
 
         where :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k))`.
         """
@@ -129,8 +131,8 @@ class ProgressivePriceSchedule(BasePriceSchedule):
 
         .. math::
 
-            J_i = \frac{P}{(1+d)^{n_{k-i+1}}},
-            \mathrm{for\ all}\ i,1\leq i\leq k,
+            J_i = \\frac{P}{(1+d)^{n_{k-i+1}}},
+            \\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
         where :math:`d` is the daily interest rate, :math:`P` is the PMT,
         and :math:`n_1,\ldots,n_k` are the return days.
@@ -151,8 +153,8 @@ class ProgressivePriceSchedule(BasePriceSchedule):
 
         .. math::
 
-            A_i := \frac{P}{(1+d)^{n_{k-i+1}}},
-            \mathrm{for\ all}\ i,1\leq i\leq k,
+            A_i := \\frac{P}{(1+d)^{n_{k-i+1}}},
+            \\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
         where :math:`d` is the daily interest rate, :math:`n_1,\ldots,n_k`
         are the return days and :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k))`.
@@ -188,10 +190,10 @@ class RegressivePriceSchedule(BasePriceSchedule):
     the :math:`i`-th amortization and :math:`J_i` the :math:`i`-th interest
     paid and :math:`b_i` the balance after the :math:`i`-th payment, then
 
-      - :math:`P=\mathrm{PMT}(S,d,(n_1,\ldots,n_k))`.
+      - :math:`P=\\mathrm{PMT}(S,d,(n_1,\ldots,n_k))`.
       - :math:`b_i = b_{i-1}(1+d)^{n_i-n_{i-1}} - P`.
-      - :math:`A_i = \frac{P}{(1+d)^{n_i}`.
-      - :math:`J_i = P - \frac{P}{(1+d)^{n_i}`.
+      - :math:`A_i = \\displaystyle\\frac{P}{(1+d)^{n_i}}`.
+      - :math:`J_i = P(1 - \\displaystyle\\frac{P}{(1+d)^{n_i}})`.
     """
 
     def calculate_amortizations(self):
@@ -202,12 +204,12 @@ class RegressivePriceSchedule(BasePriceSchedule):
 
         .. math::
 
-            A_i := \frac{P}{(1+d)^{n_i}
-            \mathrm{for\ all}\ i,1\leq i\leq k,
+            A_i := \\frac{P}{(1+d)^{n_i}}
+            \\ \\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
         where :math:`d` is the daily interest rate, :math:`n_i` is the
         :math:`i`-th return date and
-        :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k)`
+        :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k))`
         """
 
         return np.array(
@@ -226,12 +228,12 @@ class RegressivePriceSchedule(BasePriceSchedule):
 
         .. math::
 
-            J_i := P (1-\frac{1}{(1+d)^{n_i}}),
-            \mathrm{for\ all}\ i,1\leq i\leq n,
+            J_i := P (1-\\frac{1}{(1+d)^{n_i}}),
+            \\mathrm{for\\ all}\\ i,1\\leq i\\leq n,
 
         where :math:`d` is the daily interest rate, :math:`n_i` is the
         :math:`i`-th return date and
-        :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k)`
+        :math:`P = \mathrm{PMT}(S,d,(n_1,\ldots,n_k))`
         """
 
         return np.array(

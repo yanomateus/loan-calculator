@@ -18,9 +18,9 @@ def br_iof_regressive_price_grossup(
     """Calculate the grossup of the given principal.
 
     This function implements a grossup for which
-      - the principal is amortized according to a regressive Price schedule,
-      - the principal and the payments are taxed by IOF,
-      - a fee is calculated over the principal.
+    - the principal is amortized according to a regressive Price schedule,
+    - the principal and the payments are taxed by IOF,
+    - a fee is calculated over the principal.
 
     If :math:`S` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
@@ -28,20 +28,17 @@ def br_iof_regressive_price_grossup(
     vector with the return dates, then the grossup is given by
 
     .. math::
-        \mathrm{GROSSUP}\ (S, d, I^*, I^{**}, (n_1,\ldots,n_k), g)\ =
-        \frac{S}
-        {1
-         - \alpha
-         - I^{**}
-         - g
-        },
+
+        \\mathrm{GROSSUP}\ (S, d, I^*, I^{**}, (n_1,\ldots,n_k), g)
+        =\\frac{S}{1 - \\alpha - I^{**} - g},
 
     where
 
     .. math::
-        \alpha := \frac{\sum_{j=1}^k\frac{min(n_{k-j+1}\ I^*, 0.015)}
-                                         {(1+d)^{n_j}}}
-                       {\sum_{j=1}^k\frac{1}{(1+d)^{n_j}}}.
+
+        \\alpha := \\frac{
+        \\displaystyle\\sum_{j=1}^k\\frac{\\min(n_{k-j+1}\\ I^*, 0.015)}
+        {(1+d)^{n_j}}} {\\displaystyle\\sum_{j=1}^k\\frac{1}{(1+d)^{n_j}}}.
 
     Parameters
     ----------
@@ -98,9 +95,9 @@ def br_iof_progressive_price_grossup(
 
     This implements a grossup for which
 
-      - the principal is amortized according to a progressive Price schedule,
-      - the principal is taxed, as well as its payments, by IOF
-      - a fee is applied over the principal
+    - the principal is amortized according to a progressive Price schedule,
+    - the principal is taxed, as well as its payments, by IOF
+    - a fee is applied over the principal
 
     If :math:`S` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
@@ -108,19 +105,18 @@ def br_iof_progressive_price_grossup(
     vector with the return dates, then the grossup is given by
 
     .. math::
-        \mathrm{GROSSUP}\ (S, d, I^*, I^{**}, (n_1,\ldots,n_k), g)\ =
-        \frac{S}
-        {1
-         - \alpha
-         - I^{**}
-         - g
-        },
+        \\mathrm{GROSSUP}(S, d, I^*, I^{**}, (n_1,\\ldots,n_k), g) =
+        \\frac{S}{1 - \\alpha - I^{**} - g },
 
     where
 
     .. math::
-        \alpha := \frac{\sum_{j=1}^k\frac{min(n_j\ I^*, 0.015)}{(1+d)^{n_j}}}
-                       {\sum_{j=1}^k\frac{1}{(1+d)^{n_j}}}.
+        \\alpha :=
+        \\frac
+        {
+        \\displaystyle\\sum_{j=1}^k\\frac{\\min(n_j\\ I^*, 0.015)}{(1+d)^{n_j}}}
+        {
+        \\displaystyle\\sum_{j=1}^k\\frac{1}{(1+d)^{n_j}}}.
 
 
     Parameters
@@ -177,10 +173,10 @@ def br_iof_constant_amortization_grossup(
 
     This implements a grossup for which
 
-      - the principal is amortized according to a constant amortization
-        schedule
-      - the principal and the payments are taxed with IOF,
-      - a service fee is applied over the principal.
+    - the principal is amortized according to a constant amortization
+      schedule
+    - the principal and the payments are taxed with IOF,
+    - a service fee is applied over the principal.
 
     If :math:`S` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
@@ -189,22 +185,17 @@ def br_iof_constant_amortization_grossup(
 
     .. math::
 
-        \mathrm{GROSSUP}\ (S, d, I^*, I^{**}, (n_1,\ldots,n_k), g)\ =
-        \frac{S}
-        {1
-         - \alpha
-         - I^{**}
-         - g
-        },
+        \\mathrm{GROSSUP}(S, d, I^*, I^{**}, (n_1,\\ldots,n_k), g) =
+        \\frac{S} {1 - \\alpha - I^{**} - g},
 
     where
 
     .. math::
 
-        \alpha :=
-        \frac{1}{k}
-        \frac{\sum_{j=1}^k \min(n_j\ I^*, 0.015)}
-             {\sum_{j=1}^k\frac{1}{(1+d)^{n_j}}}.
+        \\alpha :=
+        \\frac{1}{k}
+        \\frac{\\displaystyle\\sum_{j=1}^k \\min(n_j\\ I^*, 0.015)}
+              {\\displaystyle\\sum_{j=1}^k\\frac{1}{(1+d)^{n_j}}}.
 
     """
 

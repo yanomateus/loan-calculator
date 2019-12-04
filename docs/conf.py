@@ -47,7 +47,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Loan Cashflow Calculator'
+project = u'Loan Calculator'
 copyright = u"2019, Mateus Yano"
 author = u"Mateus Yano"
 
@@ -101,7 +101,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'loan_cashflow_calculatordoc'
+htmlhelp_basename = 'loan_calculatordoc'
 
 
 # -- Options for LaTeX output ------------------------------------------
@@ -129,7 +129,7 @@ latex_elements = {
 # [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'loan_calculator.tex',
-     u'Loan Cashflow Calculator Documentation',
+     u'Loan Calculator Documentation',
      u'Mateus Yano', 'manual'),
 ]
 
