@@ -8,10 +8,10 @@ def constant_return_pmt(principal, daily_interest_rate, return_days):
 
     .. math::
 
-        \mathrm{PMT}\ (S, d, (n_1,\ldots,n_k)) =
-        \frac{S}{\sum\frac{1}{(1+d)^{n_j}}},
+        \\mathrm{PMT}\\ (S, d, (n_1,\\ldots,n_k)) =
+        \\frac{S}{\\sum\\frac{1}{(1+d)^{n_j}}},
 
-    where the sum is taken for :math:`j,1\leq j\leq k`.
+    where the sum is taken for :math:`j,1\\leq j\\leq k`.
 
     Parameters
     ----------

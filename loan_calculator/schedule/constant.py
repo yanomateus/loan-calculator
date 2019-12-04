@@ -8,7 +8,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
     The constant amortization schedule is defined as the amortization schedule
     where all the amortizations have the same value, given as
-    :math:`\frac{S}{k}`, where :math:`S` is the principal and :math:`k`
+    :math:`S/k`, where :math:`S` is the principal and :math:`k`
     is the number of due payments. Therefore, the due payments do not
     have all the same value, as in the French system, but differ
     according to how much interest was accumulated over time. If
@@ -17,11 +17,11 @@ class ConstantAmortizationSchedule(BaseSchedule):
     and interest, respectively, and :math:`b_i` is the balance after the
     :math:`i`-th payment, then
 
-      - :math:`A_i = \frac{S}{k}`.
-      - :math:`J_i = ((1+d)^{n_i} - (1+d)^{n_{i-1}})
-        (S - A \sum_{1\leq j\leq i-1} \frac{1}{(1+d)^{n_j}})`.
-      - :math:`P_i = A + J_i`.
-      - :math:`b_i = S - iA`.
+    - :math:`A_i = \\frac{S}{k}`.
+    - :math:`J_i = ((1+d)^{n_i} - (1+d)^{n_{i-1}})
+      (S - A\\displaystyle\\sum_{1\\leq j\\leq i-1}\\frac{1}{(1+d)^{n_j}})`.
+    - :math:`P_i = A + J_i`.
+    - :math:`b_i = S - iA`.
     """
 
     def __init__(self, principal, daily_interest_rate, return_days):
@@ -44,8 +44,8 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
         .. math::
 
-            b_i := \frac{S}(1 - \frac{i}{k}),
-            \mathrm{for\ all}\ i,0\leq i\leq k,
+            b_i := S(1 - \\frac{i}{k}),
+            \\ \\mathrm{for\\ all}\\ i,0\\leq i\\leq k,
 
         where :math:`S` is the principal and :math:`k` is the number of
         instalments.
@@ -69,7 +69,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
         .. math::
 
-            A_i := \frac{S}{k},\mathrm{for\ all}\ i,1\leq i\leq k,
+            A_i := \\frac{S}{k},\\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
         where :math:`S` is the principal and :math:`k` is the number of
         instalments.
@@ -91,7 +91,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
         .. math::
 
             J_i := b_{i-1}((1+d)^{n_i-n_{i-1}}-1)
-            \mathrm{for\ all}\ i,1\leq i\leq k,
+            \\ \\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
         where :math:`b_{i-1}` is the :math:`(i-1)`-th balance, :math:`d` is the
         daily interest rate and :math:`n_1,\ldots,n_k` are the return days.
@@ -120,8 +120,8 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
         .. math::
 
-            P_i = b_{i-1}((1+d)^{n_i-n_{i-1}}-1) + \frac{S}{k},
-            \mathrm{for\ all}\ i,1\leq i\leq k,
+            P_i = b_{i-1}((1+d)^{n_i-n_{i-1}}-1) + \\frac{S}{k},
+            \\ \\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
         where :math:`b_{i-1}` is the :math:`(i-1)`-th balance, :math:`d` is the
         daily interest rate, :math:`S` is the principal and

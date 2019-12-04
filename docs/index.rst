@@ -4,10 +4,10 @@ Loan Calculator
 Sane Elementary Financial Mathematics for Loans.
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Contents:
+    :maxdepth: 2
+    :caption: Contents:
 
-   Instalation <instalation.rst>
-   Usage <usage.rst>
-   Elementary Financial Mathematics <maths.rst>
+    Maths <maths.rst>
+    Reference <reference.rst>
+
 
