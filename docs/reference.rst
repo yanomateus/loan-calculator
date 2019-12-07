@@ -19,6 +19,10 @@ grossup
 .. automodule:: loan_calculator.grossup.service_fee
     :members:
 
+.. automodule:: loan_calculator.grossup.solver
+    :members:
+
+
 amortization schedules
 ----------------------
 
