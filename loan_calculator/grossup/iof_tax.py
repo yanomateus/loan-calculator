@@ -1,4 +1,4 @@
-"""Calculate the Brazilian IOF taxation over loan operations.
+"""Calculate the Brazilian IOF tax on loan operations.
 
 The IOF tax (Imposto sobre Operações de Crédito, Câmbio e Seguro ou relativas a
 Títulos ou Valores Mobiliários) is a Brazilian tax incident over many financial
@@ -19,7 +19,44 @@ a fixed aliquot with its value defined by law.
 """
 
 
-def amortization_iof(amortization, daily_iof_fee, num_days):
+def amortization_schedule_iof(
+        amortizations,
+        return_days,
+        daily_iof_aliquot
+):
+    """IOF tax over an amortization schedule.
+
+    If :math:`A_1,A_2\\ldots,A_k` are the amortizations,
+    :math:`n_1,n_2,\\ldots,n_k` the return days and :math:`I^*` the daily IOF
+    aliquot, then the due IOF tax is
+
+    .. math::
+
+        \\sum_{i=1}^k A_i \\min(n_i I^*, 0.015).
+
+    Parameters
+    ----------
+    amortizations: list, required
+        Sequence of amortizations.
+    return_days: list, required
+        Sequence of assumed return days.
+    daily_iof_aliquot: float, required
+        The daily IOF aliquot, defined by law.
+
+    Returns
+    -------
+        The due IOF tax on the amortizations in the given days.
+    """
+
+    # variables are renamed to make the math more explicit
+    amts = amortizations
+    r_days = return_days
+    d = daily_iof_aliquot
+
+    return sum(a * min(n * d, 0.015) for a, n in zip(amts, r_days))
+
+
+def amortization_iof(amortization, num_days, daily_iof_aliquot):
     """IOF tax over amortization.
 
     If :math:`A` is the amortization, :math:`I^*` is the daily IOF fee and
@@ -35,16 +72,16 @@ def amortization_iof(amortization, daily_iof_fee, num_days):
     amortization: float, required
         The amortization, i.e., principal payment, which is the basis for the
         amortization IOF tax.
-    daily_iof_fee: float, required
+    daily_iof_aliquot: float, required
         Aliquot applied over the amortization, as described in its current law.
     num_days: int, required
         Number of days since the loan was granted.
     """
 
-    return float(amortization * min(daily_iof_fee * num_days, 0.015))
+    return float(amortization * min(daily_iof_aliquot * num_days, 0.015))
 
 
-def complementary_iof(principal, complementary_iof_fee):
+def complementary_iof(principal, complementary_iof_fee=0.038):
     """Complementary IOF tax over the principal.
 
     If :math:`S` is the principal and :math:`I^{**}` is the complementary IOF
