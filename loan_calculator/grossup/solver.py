@@ -15,6 +15,39 @@ def approximate_grossup(
 ):
     """Approximate the grossup for given tax and fee functions.
 
+    Wrap around scipy.optimize.fsolve to find a zero of a residue function,
+    which is evaluated as the difference between a grossed up principal and the
+    net principal.
+
+    Let :math:`S_\\circ` be target net principal, :math:`\\mathcal{A}` be an
+    amortization class, :math:`d` the daily interest rate,
+    :math:`n_1,n_2,\\ldots,n_k` the return days, :math:`I^*` a
+    reduced aliquot which quantifies the tax over the amortization schedule,
+    :math:`I^{**}` a complementary aliquot quantifying the tax over the
+    principal and :math:`\\sigma` an aliquot over the principal, quantifying
+    the service fee.
+
+    Given
+
+    *   :math:`A = \\mathcal{A}(S, (n_1,\\ldots,n_k), d)` an amortization
+        schedule,
+    *   :math:`f = f_{I^{*}} (A)` a mathematical function evaluating the tax over
+        the amortization schedule,
+    *   :math:`c = c_{I^{**}}(S)` a mathematical function evaluating the tax
+        over the principal,
+    *   :math:`g = g_{\\sigma}(S)` a mathematical function evaluating the
+        service fee over the principal,
+
+    the *residue function* is then defined as
+
+    .. math::
+
+        \\Delta_{S_\\circ,A,I^*,I^{**},\\sigma} (S) :=
+        S_\circ - (S - f_{I^*}(A) - c_{I^{**}}(S) - g_\\sigma (S)).
+
+    Thus, the grossed up principal :math:`S` is approximated as a zero of the
+    residue function.
+
     Parameters
     ----------
     net_principal: float, required
@@ -38,20 +71,14 @@ def approximate_grossup(
         The aliquot to be used by the `reduced_tax_function`.
     complementary_tax_function: Callable, required
         A callable implementing the signature
-
         ::
-
             c(principal: float, complementary_aliquot: float) -> float
-
     complementary_aliquot: float, required
         Complementary aliquot to be used by `complementary_tax_function`.
     service_fee_function: Callable, required
         A callable implementing the signature
-
         ::
-
             g(principal: float, service_fee_aliquot: float) -> float
-
     service_fee_aliquot: float, required
         The aliquot to be used by `service_fee_function`.
 
