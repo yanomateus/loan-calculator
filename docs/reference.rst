@@ -8,7 +8,7 @@ PMT
 .. automodule:: loan_calculator.pmt
     :members:
 
-grossup
+Grossup
 -------
 .. automodule:: loan_calculator.grossup.functions
     :members:
@@ -23,7 +23,7 @@ grossup
     :members:
 
 
-amortization schedules
+Amortization Schedules
 ----------------------
 
 .. automodule:: loan_calculator.schedule.base
@@ -35,3 +35,9 @@ amortization schedules
 .. automodule:: loan_calculator.schedule.price
     :members:
 
+
+Internal Return Rate
+--------------------
+
+.. automodule:: loan_calculator.irr
+    :members:
