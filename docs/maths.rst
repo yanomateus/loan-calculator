@@ -22,9 +22,4 @@ grossup
 Internal Return Rate
 --------------------
 
-TODO
-
-Loan Cashflow Solver
---------------------
-
-TODO
+.. include:: ./irr.rst

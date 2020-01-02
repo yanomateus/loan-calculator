@@ -7,7 +7,7 @@ Sane Elementary Financial Mathematics for Loans.
     :maxdepth: 2
     :caption: Contents:
 
-    Maths <maths.rst>
+    Elementary Financial Mathematics <maths.rst>
     Reference <reference.rst>
 
 

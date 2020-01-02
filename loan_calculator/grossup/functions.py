@@ -24,12 +24,12 @@ def br_iof_regressive_price_grossup(
 
     If :math:`S` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
-    fee, :math:`g` is the service fee and :math:`(n_1,n_2,\ldots,n_k)` is the
+    fee, :math:`g` is the service fee and :math:`(n_1,n_2,\\ldots,n_k)` is the
     vector with the return dates, then the grossup is given by
 
     .. math::
 
-        \\mathrm{GROSSUP}\ (S, d, I^*, I^{**}, (n_1,\ldots,n_k), g)
+        \\mathrm{GROSSUP}\\ (S, d, I^*, I^{**}, (n_1,\\ldots,n_k), g)
         =\\frac{S}{1 - \\alpha - I^{**} - g},
 
     where
@@ -101,7 +101,7 @@ def br_iof_progressive_price_grossup(
 
     If :math:`S` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
-    fee, :math:`g` is the service fee and :math:`(n_1,n_2,\ldots,n_k)` is the
+    fee, :math:`g` is the service fee and :math:`(n_1,n_2,\\ldots,n_k)` is the
     vector with the return dates, then the grossup is given by
 
     .. math::
