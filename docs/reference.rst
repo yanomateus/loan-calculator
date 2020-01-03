@@ -22,10 +22,8 @@ Grossup
 .. automodule:: loan_calculator.grossup.solver
     :members:
 
-
 Amortization Schedules
 ----------------------
-
 .. automodule:: loan_calculator.schedule.base
     :members:
 
@@ -35,9 +33,7 @@ Amortization Schedules
 .. automodule:: loan_calculator.schedule.price
     :members:
 
-
 Internal Return Rate
 --------------------
-
 .. automodule:: loan_calculator.irr
     :members:
