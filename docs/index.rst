@@ -12,7 +12,7 @@ like
 *   IRR
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
     :caption: Contents:
 
     Elementary Financial Mathematics <maths.rst>
