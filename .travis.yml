@@ -15,4 +15,5 @@ deploy:
   on:
     tags: true
     repo: yanomateus/loan-calculator
+    branch: master
     python: 3.8
