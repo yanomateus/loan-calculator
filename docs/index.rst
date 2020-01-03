@@ -1,7 +1,15 @@
 Loan Calculator
 ===============
 
-Sane Elementary Financial Mathematics for Loans.
+Elementary Financial Mathematics for Loans.
+
+This library provides mathematically grounded Financial Mathematics routines
+like
+
+*   PMT
+*   Amortizations Schedules
+*   Grossup
+*   IRR
 
 .. toctree::
     :maxdepth: 2

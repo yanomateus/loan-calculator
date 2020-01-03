@@ -15,11 +15,18 @@ with open('HISTORY.rst') as history_file:
 with open('LICENSE') as license_file:
     license_ = license_file.read()
 
-requirements = [
-    'Click>=7.0',
-    'numpy==1.17.4',
-    'scipy==1.3.3',
-]
+if sys.version_info.major == 2 and sys.version_info.minor == 7:
+    requirements = [
+        'numpy==1.16.6',
+        'scipy==1.2.2',
+    ]
+elif sys.version_info.major == 3:
+    requirements = [
+        'numpy == 1.17.4',
+        'scipy == 1.3.3',
+    ]
+else:
+    raise RuntimeError('Unsupported python version!')
 
 setup_requirements = ['pytest-runner', ]
 
