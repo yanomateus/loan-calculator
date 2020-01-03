@@ -5,7 +5,6 @@ python:
   - 3.8
   - 3.7
   - 3.6
-  - 3.5
   - 2.7
 
 # Command to install dependencies, e.g. pip install -r requirements_py3.txt --use-mirrors
