@@ -55,7 +55,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
         return np.array(
             [
-                self.principal * (1 - i / k)
+                self.principal * (1 - float(i) / k)
                 for i in range(k + 1)
             ],
             dtype=float
@@ -94,7 +94,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
             \\ \\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
         where :math:`b_{i-1}` is the :math:`(i-1)`-th balance, :math:`d` is the
-        daily interest rate and :math:`n_1,\ldots,n_k` are the return days.
+        daily interest rate and :math:`n_1,\\ldots,n_k` are the return days.
         """
 
         # rename variable to make the math more explicit
@@ -113,10 +113,10 @@ class ConstantAmortizationSchedule(BaseSchedule):
     def calculate_due_payments(self):
         """Calculate the due payments.
 
-        In the constant amortization schedule, the instalment value is not fixed
-        as in Price type schedules but depends on how much interest is due
-        for each period and the amortization, which is constant. The payments
-        are then given by
+        In the constant amortization schedule, the instalment value is not
+        fixed as in Price type schedules but depends on how much interest is
+        due for each period and the amortization, which is constant. The
+        payments are then given by
 
         .. math::
 
@@ -125,7 +125,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
         where :math:`b_{i-1}` is the :math:`(i-1)`-th balance, :math:`d` is the
         daily interest rate, :math:`S` is the principal and
-        :math:`n_1,\ldots,n_k` are the return days.
+        :math:`n_1,\\ldots,n_k` are the return days.
         """
 
         # variables are renamed to make the math more explicit

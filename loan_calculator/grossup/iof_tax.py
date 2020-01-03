@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Calculate the Brazilian IOF tax on loan operations.
 
 The IOF tax (Imposto sobre Operações de Crédito, Câmbio e Seguro ou relativas a
@@ -65,7 +66,7 @@ def amortization_iof(amortization, num_days, daily_iof_aliquot):
 
     .. math::
 
-        A\ \min(nI^*, 0.015).
+        A\\ \\min(nI^*, 0.015).
 
     Parameters
     ----------
@@ -89,7 +90,7 @@ def complementary_iof(principal, complementary_iof_fee=0.038):
 
     .. math::
 
-        S\ I^{**}.
+        S\\ I^{**}.
 
     Parameters
     ----------
@@ -111,15 +112,15 @@ def loan_iof(
 ):
     """The total IOF of a loan.
 
-    If :math:`S` is the principal, :math:`A_i` is the :math:`i`-th amortization,
-    :math:`n_1,\ldots,n_k` are the return days, :math:`I^*` is the daily IOF
-    aliquot and :math:`I^{**}` is the complementary IOF aliquot, then the loan
-    IOF tax amount is
+    If :math:`S` is the principal, :math:`A_i` is the :math:`i`-th
+    amortization, :math:`n_1,\\ldots,n_k` are the return days, :math:`I^*` is
+    the daily IOF aliquot and :math:`I^{**}` is the complementary IOF aliquot,
+    then the loan IOF tax amount is
 
     .. math::
 
-        \mathrm{IOF}(S, I^*, I^{**}, (A_1,\ldots,A_k),(n_1,\ldots,n_k)) =
-         SI^{**} + \sum_{i=1}^k A_i \min(n_i I^*,0.015)
+        \\mathrm{IOF}(S, I^*, I^{**}, (A_1,\\ldots,A_k),(n_1,\\ldots,n_k)) =
+         SI^{**} + \\sum_{i=1}^k A_i \\min(n_i I^*,0.015)
 
     Parameters
     ----------

@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class BaseSchedule:
+class BaseSchedule(object):
     """Base amortization schedule"""
 
     def __init__(self, principal, daily_interest_rate, return_days):

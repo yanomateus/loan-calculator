@@ -16,7 +16,8 @@ def test_approximate_grossup_for_progressive_price_schedule():
         1.0,
         1.0,
         [1, 2],
-        lambda p, d, r_days: ProgressivePriceSchedule(p, d, r_days).amortizations,
+        (lambda p, d, r_days:
+         ProgressivePriceSchedule(p, d, r_days).amortizations),
         amortization_schedule_iof,
         3.0 / 500,
         complementary_iof,
@@ -36,7 +37,8 @@ def test_approximate_grossup_for_regressive_price_schedule():
         1.0,
         1.0,
         [1, 2],
-        lambda p, d, r_days: RegressivePriceSchedule(p, d, r_days).amortizations,
+        (lambda p, d, r_days:
+         RegressivePriceSchedule(p, d, r_days).amortizations),
         amortization_schedule_iof,
         0.0075,
         complementary_iof,
@@ -56,7 +58,8 @@ def test_approximate_grossup_for_constant_amortization_schedule():
         1.0,
         1.0,
         [1, 2],
-        lambda p, d, r_days: ConstantAmortizationSchedule(p, d, r_days).amortizations,
+        (lambda p, d, r_days:
+         ConstantAmortizationSchedule(p, d, r_days).amortizations),
         amortization_schedule_iof,
         1.0 / 200,
         complementary_iof,

@@ -114,7 +114,8 @@ def br_iof_progressive_price_grossup(
         \\alpha :=
         \\frac
         {
-        \\displaystyle\\sum_{j=1}^k\\frac{\\min(n_j\\ I^*, 0.015)}{(1+d)^{n_j}}}
+        \\displaystyle
+        \\sum_{j=1}^k\\frac{\\min(n_j\\ I^*, 0.015)}{(1+d)^{n_j}}}
         {
         \\displaystyle\\sum_{j=1}^k\\frac{1}{(1+d)^{n_j}}}.
 
@@ -180,7 +181,7 @@ def br_iof_constant_amortization_grossup(
 
     If :math:`S` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
-    fee, :math:`g` is the service fee and :math:`(n_1,n_2,\ldots,n_k)` is the
+    fee, :math:`g` is the service fee and :math:`(n_1,n_2,\\ldots,n_k)` is the
     vector with the return dates, then the grossup is given by
 
     .. math::
@@ -196,7 +197,6 @@ def br_iof_constant_amortization_grossup(
         \\frac{1}{k}
         \\frac{\\displaystyle\\sum_{j=1}^k \\min(n_j\\ I^*, 0.015)}
               {\\displaystyle\\sum_{j=1}^k\\frac{1}{(1+d)^{n_j}}}.
-
     """
 
     # variables are renamed to make the math more explicit

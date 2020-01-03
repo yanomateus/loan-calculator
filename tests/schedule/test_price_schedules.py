@@ -46,7 +46,8 @@ def test_progressive_price_amortization_schedule():
     npt.assert_almost_equal(schedule.balance, expected_balances, decimal=2)
     npt.assert_almost_equal(schedule.interest_payments, expected_interests,
                             decimal=2)
-    npt.assert_almost_equal(schedule.due_payments, expected_payments, decimal=2)
+    npt.assert_almost_equal(schedule.due_payments, expected_payments,
+                            decimal=2)
 
     npt.assert_almost_equal(schedule.total_amortization, principal, decimal=2)
     npt.assert_almost_equal(schedule.total_interest, 1469.80, decimal=2)
@@ -94,7 +95,8 @@ def test_regressive_price_amortization_schedule():
     npt.assert_almost_equal(schedule.balance, expected_balances, decimal=2)
     npt.assert_almost_equal(schedule.interest_payments, expected_interests,
                             decimal=2)
-    npt.assert_almost_equal(schedule.due_payments, expected_payments, decimal=2)
+    npt.assert_almost_equal(schedule.due_payments, expected_payments,
+                            decimal=2)
 
     npt.assert_almost_equal(schedule.total_amortization, principal, decimal=2)
     npt.assert_almost_equal(schedule.total_interest, 1469.80, decimal=2)

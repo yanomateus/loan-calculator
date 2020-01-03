@@ -9,5 +9,4 @@ Sane Elementary Financial Mathematics for Loans.
 
     Elementary Financial Mathematics <maths.rst>
     Reference <reference.rst>
-
-
+    Contributing <contributing.rst>

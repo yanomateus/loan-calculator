@@ -1,7 +1,8 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """The setup script."""
+
+import sys
 
 from setuptools import setup, find_packages
 
@@ -10,6 +11,9 @@ with open('README.rst') as readme_file:
 
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
+
+with open('LICENSE') as license_file:
+    license_ = license_file.read()
 
 requirements = [
     'Click>=7.0',
@@ -24,7 +28,7 @@ test_requirements = ['pytest>=3', ]
 setup(
     author="Mateus Yano",
     author_email='yano.mateus@gmail.com',
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -33,20 +37,14 @@ setup(
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-    description="Loan Cashflow Solver",
-    entry_points={
-        'console_scripts': [
-            'loan_calculator=loan_calculator.cli:main',
-        ],
-    },
+    description="Loan Calculator",
     install_requires=requirements,
     license="MIT license",
-    long_description=readme + '\n\n' + history,
+    long_description=readme + '\n\n' + history + '\n\n' + license_,
     include_package_data=True,
     keywords='loan_calculator',
     name='loan_calculator',
@@ -54,7 +52,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/yanomateus/loan_cashflow_calculator',
+    url='https://github.com/yanomateus/loan-calculator',
     version='0.1.0',
     zip_safe=False,
 )
