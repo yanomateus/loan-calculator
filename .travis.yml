@@ -9,7 +9,7 @@ script: tox
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  user: yanomateus
+  user: "__token__"
   password:
     secure: DeJytcu+7NWI0qAp3B4gFmLp68E/+cs0Zz5E5wdphAfcV3MJoge+oUQjZ12vEv7ZgcWP3ijSTyS3LQvuMJ9hjPhNG24qZuEgVchdhJLFTsn9HXtyl25FuppcqpvE1teXLfxqvTYq9cPZ5x5W0Bw7hXZFyFzim8BS5jFUYqX3j25074yarlwFOcpuC16ieVCFKWe/22GWO9nmc9bC8BNuKKjaIrjPtQvYxoBU+kRhAylGHM63VnveEvbuFLfLZ8/9IfmXcbgevBP5zniBEEUwzyzSWvg2zE4apM0Jc170/39GoJc6o3BT76zJCJ9hJ59OKLfpmr+Rxnzsa7Vy3EOvmuCxYjA1o90i0gQe1K+RB5ZYnmrgBnM82etZ2AKNGJH+wn4VZaNJggC0k+j6ZH46qphrXk4ByGTwEd8WSKa96TcWfzfwZFjFKhVe63JjXkh/P7ZspUfz+89hKGGMCK3h8nrc2Pyn8I9JTd0aIfVJA83Mi3wLY25YjIGHQdYB/ZGlu3zL0Hp4QgsPRLk7cS//6+qTvV5La3Fya9d7aPt0R7tvkjJcBmiC5GP/auA+t+zjEb1z4SaNxOhT/etbJPk+0gXxErVaYov24KvsBqN3VUZX1vsLFcWaqX5bQu3auh6YWJ4z5s18WrL6rc5ViAWA74VQZwZ+xpH7cRC/9UNVhFA=
   on:
