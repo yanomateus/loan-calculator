@@ -1,4 +1,5 @@
-# TODO: principal and return should be modeled as monetary quantities
+
+
 def constant_return_pmt(principal, daily_interest_rate, return_days):
     """Calculate the PMT (payment value) for the given parameters.
 
