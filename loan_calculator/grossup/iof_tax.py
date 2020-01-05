@@ -107,8 +107,8 @@ def loan_iof(
     principal,
     amortizations,
     return_days,
-    daily_iof_fee,
-    complementary_iof_fee
+    daily_iof_aliquot,
+    complementary_iof_aliquot
 ):
     """The total IOF of a loan.
 
@@ -130,15 +130,15 @@ def loan_iof(
         List of floats providing the amortization due to each payment.
     return_days: list, required
         List of integers with the numbers of days since the loan was granted.
-    daily_iof_fee: float, required
+    daily_iof_aliquot: float, required
         Daily IOF aliquot, as described in its current law.
-    complementary_iof_fee: float, required
+    complementary_iof_aliquot: float, required
         Complementary IOF aliquot, as described in its current law.
     """
 
     p = principal
-    d_iof = daily_iof_fee
-    c_iof = complementary_iof_fee
+    d_iof = daily_iof_aliquot
+    c_iof = complementary_iof_aliquot
 
     return c_iof * p + sum(a * min(n * d_iof, 0.015)
                            for a, n in zip(amortizations, return_days))
