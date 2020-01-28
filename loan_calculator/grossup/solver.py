@@ -53,7 +53,14 @@ def approximate_grossup(
     daily_interest_rate: float, required
         The loan's daily interest rate.
     amortization_function: list, required
-        List of expected amortizations.
+        A callable implementing the signature
+
+        ::
+
+            a(float: principal, return_days: list, daily_aliquot)
+            -> list[float]
+
+
     return_days: list, required
         List of return days, where returns are expected to be performed.
     reduced_tax_function: Callable, required
