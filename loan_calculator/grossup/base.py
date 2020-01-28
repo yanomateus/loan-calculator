@@ -1,108 +1,49 @@
-from loan_calculator.grossup.solver import approximate_grossup
-from loan_calculator.loan import Loan
-from loan_calculator.grossup.functions import (
-    br_iof_regressive_price_grossup,
-    br_iof_progressive_price_grossup,
-    br_iof_constant_amortization_grossup
-)
-from loan_calculator.schedule import (
-    RegressivePriceSchedule,
-    ProgressivePriceSchedule,
-    ConstantAmortizationSchedule
-)
+from loan_calculator.irr import approximate_irr
 
 
-class Grossup(object):
+class BaseGrossup(object):
 
-    def __init__(self, loan):
+    def __init__(self, loan, reference_date, *args):
+        """Initialize grossup.
+
+        Parameters
+        ----------
+        loan : Loan, required
+            Loan to be grossed up.
+        reference_date : date, required
+            Reference used to the gross up evaluation. It is usually the date
+            of the associated taxable event.
+        args
+            Passed as args to grossup implementation.
+        """
+
+        self.reference_date = reference_date
+
         self.loan = loan
+        self.grossed_up_loan = getattr(self, 'grossup', loan)(
+            loan, reference_date, *args
+        )
+
+    def grossup(self, *args, **kwargs):
+        raise NotImplementedError
 
     @property
     def net_principal(self):
         return self.loan.principal
 
+    @property
+    def grossed_up_principal(self):
+        return self.grossed_up_loan.principal
 
-class GenericGrossup(Grossup):
-
-    def __init__(
-        self,
-        loan,
-        amortization_function,
-        reduced_tax_function,
-        reduced_aliquot,
-        complementary_tax_function,
-        complementary_aliquot,
-        service_fee_function,
-        service_fee_aliquot,
-    ):
-
-        super(Grossup, self).__init__(loan)
-
-        grossed_up_principal = approximate_grossup(
+    @property
+    def irr(self):
+        return approximate_irr(
             self.net_principal,
-            loan.daily_interest_rate,
-            [(r_date - loan.start_date).days for r_date in loan.return_dates],
-            amortization_function,
-            reduced_tax_function,
-            reduced_aliquot,
-            complementary_tax_function,
-            complementary_aliquot,
-            service_fee_function,
-            service_fee_aliquot
-        )[0]
-
-        self.grossed_up_loan = Loan(
-            grossed_up_principal,
-            loan.daily_interest_rate,
-            loan.start_date,
-            loan.return_dates,
-            loan.amortization_schedule_discriminator
+            self.grossed_up_loan.due_payments,
+            [
+                (r_date - self.reference_date).days
+                for r_date in self.loan.return_dates
+            ]
         )
 
 
-class IofGrossup(Grossup):
-
-    def __init__(
-        self,
-        loan,
-        daily_iof_aliquot=0.000082,
-        complementary_iof_aliquot=0.0038,
-        service_fee=0.05
-    ):
-
-        super(Grossup, self).__init__(loan)
-
-        if loan.amortization_schedule_cls is RegressivePriceSchedule:
-
-            grossup_function = br_iof_regressive_price_grossup
-
-        elif loan.amortization_schedule_cls is ProgressivePriceSchedule:
-
-            grossup_function = br_iof_progressive_price_grossup
-
-        elif loan.amortization_schedule_cls is ConstantAmortizationSchedule:
-
-            grossup_function = br_iof_constant_amortization_grossup
-
-        else:
-
-            raise ValueError(
-                'Unknown amortization schedule class {}.'
-                .format(loan.amortization_schedule_cls.__name__)
-            )
-
-        grossed_up_principal = grossup_function(
-            loan.principal,
-            loan.daily_interest_rate,
-            daily_iof_aliquot,
-            complementary_iof_aliquot,
-            [(r_date - loan.start_date).days for r_date in loan.return_dates],
-            service_fee
-        )
-
-        self.grossed_up_loan = Loan(
-            grossed_up_principal,
-            loan.daily_interest_rate,
-            loan.start_date,
-            loan.return_dates,
-        )
