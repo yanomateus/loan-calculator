@@ -45,5 +45,3 @@ class BaseGrossup(object):
                 for r_date in self.loan.return_dates
             ]
         )
-
-

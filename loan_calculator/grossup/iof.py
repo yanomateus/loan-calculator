@@ -1,8 +1,15 @@
-from loan_calculator.grossup.base import BaseGrossup
-from loan_calculator.grossup.functions import br_iof_regressive_price_grossup, br_iof_progressive_price_grossup, \
-    br_iof_constant_amortization_grossup
 from loan_calculator.loan import Loan
-from loan_calculator.schedule import RegressivePriceSchedule, ProgressivePriceSchedule, ConstantAmortizationSchedule
+from loan_calculator.grossup.base import BaseGrossup
+from loan_calculator.grossup.functions import (
+    br_iof_regressive_price_grossup,
+    br_iof_progressive_price_grossup,
+    br_iof_constant_amortization_grossup
+)
+from loan_calculator.schedule import (
+    RegressivePriceSchedule,
+    ProgressivePriceSchedule,
+    ConstantAmortizationSchedule
+)
 
 
 class IofGrossup(BaseGrossup):
