@@ -17,13 +17,11 @@ mathematical functions. Such mathematical functions are
 *   :math:`a = a(s, d, (n_1,\ldots,n_k))` returning :math:`(a_1,\ldots,a_k)` a
     vector of amortizations, where :math:`s` is the principal, :math:`d` is the
     daily interest rate and :math:`n_i` is the :math:`i`-th return day,
-*   :math:`f = f((a_1,\ldots,a_k), (n_1,\ldots,n_k), \alpha)`, where :math:`a_i`
-    is the :math:`i`-th amortization, :math:`n_i` is the :math:`i`-th the return
-    day, and :math:`\alpha` is the tax's daily aliquot,
-*   :math:`c = c(s, \beta)`, where :math:`s` is the principal and :math:`\beta`
-    is the complementary aliquot,
-*   :math:`g = g(s, \gamma)`, where :math:`s` is the principal and
-    :math:`\gamma` is the service fee aliquot.
+*   :math:`f = f((a_1,\ldots,a_k), (n_1,\ldots,n_k))`, where :math:`a_i`
+    is the :math:`i`-th amortization and :math:`n_i` is the :math:`i`-th the
+    return day,
+*   :math:`c = c(s)`, where :math:`s` is the principal,
+*   :math:`g = g(s)`, where :math:`s` is the principal.
 
 The grossed up principal is then approximated as a positive real root of the
 function
@@ -32,6 +30,6 @@ function
 
     s \longmapsto
     s_\circ
-    - (s - f(a(s, d, (n_1,\ldots,n_k)), (n_1,\ldots,n_k), \alpha)
-    - c(s,\beta)
-    - g(s,\gamma)).
+    - (s - f(a(s, d, (n_1,\ldots,n_k)), (n_1,\ldots,n_k))
+    - c(s)
+    - g(s)).
