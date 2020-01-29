@@ -23,7 +23,7 @@ a fixed aliquot with its value defined by law.
 def amortization_schedule_iof(
         amortizations,
         return_days,
-        daily_iof_aliquot
+        daily_iof_aliquot=0.000082
 ):
     """IOF tax over an amortization schedule.
 
@@ -57,7 +57,7 @@ def amortization_schedule_iof(
     return sum(a * min(n * d, 0.015) for a, n in zip(amts, r_days))
 
 
-def amortization_iof(amortization, num_days, daily_iof_aliquot):
+def amortization_iof(amortization, num_days, daily_iof_aliquot=0.000082):
     """IOF tax over amortization.
 
     If :math:`A` is the amortization, :math:`I^*` is the daily IOF fee and

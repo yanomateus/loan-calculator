@@ -16,14 +16,16 @@ def test_approximate_grossup_for_progressive_price_schedule():
         1.0,
         1.0,
         [1, 2],
-        (lambda p, d, r_days:
-         ProgressivePriceSchedule(p, d, r_days).amortizations),
-        amortization_schedule_iof,
-        3.0 / 500,
-        complementary_iof,
-        0.09,
-        linear_service_fee,
-        0.4
+        (
+            lambda p, d, r_days:
+            ProgressivePriceSchedule(p, d, r_days).amortizations
+        ),
+        (
+            lambda s, r:
+            amortization_schedule_iof(s, r, daily_iof_aliquot=3.0 / 500)
+        ),
+        lambda s: complementary_iof(s, complementary_iof_fee=0.09),
+        lambda s: linear_service_fee(s, fee=0.4)
     )
 
     assert_almost_equal(gup, 2.0, decimal=2)
@@ -37,14 +39,13 @@ def test_approximate_grossup_for_regressive_price_schedule():
         1.0,
         1.0,
         [1, 2],
-        (lambda p, d, r_days:
-         RegressivePriceSchedule(p, d, r_days).amortizations),
-        amortization_schedule_iof,
-        0.0075,
-        complementary_iof,
-        0.09,
-        linear_service_fee,
-        0.4
+        (
+            lambda p, d, r_days:
+            RegressivePriceSchedule(p, d, r_days).amortizations
+        ),
+        lambda s, r: amortization_schedule_iof(s, r, daily_iof_aliquot=0.0075),
+        lambda s: complementary_iof(s, complementary_iof_fee=0.09),
+        lambda s: linear_service_fee(s, fee=0.4)
     )
 
     assert_almost_equal(gup, 2.0, decimal=2)
@@ -58,14 +59,16 @@ def test_approximate_grossup_for_constant_amortization_schedule():
         1.0,
         1.0,
         [1, 2],
-        (lambda p, d, r_days:
-         ConstantAmortizationSchedule(p, d, r_days).amortizations),
-        amortization_schedule_iof,
-        1.0 / 200,
-        complementary_iof,
-        1.0 / 400,
-        linear_service_fee,
-        0.49
+        (
+            lambda p, d, r_days:
+            ConstantAmortizationSchedule(p, d, r_days).amortizations
+        ),
+        (
+            lambda s, r:
+            amortization_schedule_iof(s, r, daily_iof_aliquot=1.0 / 200)
+        ),
+        lambda s: complementary_iof(s, complementary_iof_fee=1.0 / 400),
+        lambda s: linear_service_fee(s, fee=0.49)
     )
 
     assert_almost_equal(gup, 2.0, decimal=2)
