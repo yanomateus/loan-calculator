@@ -79,6 +79,12 @@ class Loan(object):
         else:
             raise TypeError('Unknown amortization schedule type.')
 
+        if any(
+            self.capitalization_start_date >= r_date
+            for r_date in self.return_dates
+        ):
+            raise ValueError('Grace period can not exceed loan start.')
+
         self.amortization_schedule = self.amortization_schedule_cls(
             principal,
             self.daily_interest_rate,
