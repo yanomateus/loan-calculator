@@ -48,6 +48,9 @@ class Loan(object):
         """
 
         self.principal = principal
+
+        self.annual_interest_rate = annual_interest_rate
+
         self.daily_interest_rate = (
             (1 + annual_interest_rate) ** (1.0 / year_size) - 1
         )
@@ -58,6 +61,9 @@ class Loan(object):
         )
 
         self.return_dates = return_dates
+
+        self.year_size = year_size
+        self.grace_period = grace_period
 
         self.amortization_schedule_discriminator = amortization_schedule
 

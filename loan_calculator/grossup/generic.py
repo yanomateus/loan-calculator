@@ -11,11 +11,8 @@ class GenericGrossup(BaseGrossup):
         reference_date,
         amortization_function,
         reduced_tax_function,
-        reduced_aliquot,
         complementary_tax_function,
-        complementary_aliquot,
         service_fee_function,
-        service_fee_aliquot,
     ):
 
         super(BaseGrossup, self).__init__(
@@ -23,11 +20,8 @@ class GenericGrossup(BaseGrossup):
             reference_date,
             amortization_function,
             reduced_tax_function,
-            reduced_aliquot,
             complementary_tax_function,
-            complementary_aliquot,
             service_fee_function,
-            service_fee_aliquot,
         )
 
     def grossup(
