@@ -34,15 +34,4 @@ def constant_return_pmt(principal, daily_interest_rate, return_days):
     p = principal
     d = daily_interest_rate
 
-    if p <= 0:
-        raise ValueError('Principal must be a positive real number.')
-
-    if daily_interest_rate < 0.0:
-        raise ValueError(
-            'Daily interest rate must be a non-negative real number.'
-        )
-
-    if any(map(lambda x: x < 0, return_days)):
-        raise ValueError('Return days must be non-negative.')
-
     return p / sum(1.0 / (1 + d) ** n for n in return_days)
