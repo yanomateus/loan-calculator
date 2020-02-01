@@ -3,6 +3,11 @@ from loan_calculator.grossup.generic import GenericGrossup
 
 
 class Projection(object):
+    """Project loan grossup for given projection dates.
+
+    The grossup of a loan is dependent of a reference data, usually interpreted
+    as the associated taxable event date
+    """
 
     def __init__(
         self, loan, projection_dates, grossup_type='generic', *args
@@ -16,6 +21,9 @@ class Projection(object):
 
         elif grossup_type == 'iof':
             self.grossup_cls = IofGrossup
+
+        else:
+            raise TypeError('Unknown grossup type.')
 
         self.projections = [
             self.grossup_cls(loan, reference_date, *args)
