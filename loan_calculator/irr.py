@@ -8,7 +8,7 @@ def approximate_irr(net_principal, returns, return_days):
     Wrap around scipy.optimize.solve to approximate the root of a polynomial
     which is used to defined the internal return rate.
 
-    Let :math:`S_\\circ` be a net principal (i.e., a principal with eventual
+    Let :math:`s_\\circ` be a net principal (i.e., a principal with eventual
     taxes and fees properly deduced), :math:`r_1,r_2\\ldots,r_k` a sequence of
     returns and :math:`n_1,n_2,\\ldots,n_k` the due days for these returns. The
     *internal return rate* :math:`c` is then determined from the unique
@@ -16,7 +16,7 @@ def approximate_irr(net_principal, returns, return_days):
 
     .. math::
 
-        f(X) = S_\\circ X^{n_k} - r_k X^{n_k-n_1} - \\cdots
+        f(X) = s_\\circ X^{n_k} - r_k X^{n_k-n_1} - \\cdots
         - r_2 X^{n_k-n_{k-1}} - r_1
 
     on the real unknown

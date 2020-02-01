@@ -3,14 +3,14 @@
 def constant_return_pmt(principal, daily_interest_rate, return_days):
     """Calculate the PMT (payment value) for the given parameters.
 
-    If :math:`S` is the principal, :math:`d` is the daily interest rate and
+    If :math:`s` is the principal, :math:`d` is the daily interest rate and
     :math:`(n_1,\\ldots,n_k)` is the vector with the number of days since the
     start reference date, then the PMT is given by
 
     .. math::
 
-        \\mathrm{PMT}\\ (S, d, (n_1,\\ldots,n_k)) =
-        \\frac{S}{\\sum\\frac{1}{(1+d)^{n_j}}},
+        \\mathrm{PMT}\\ (s, d, (n_1,\\ldots,n_k)) =
+        \\frac{s}{\\sum\\frac{1}{(1+d)^{n_j}}},
 
     where the sum is taken for :math:`j,1\\leq j\\leq k`.
 

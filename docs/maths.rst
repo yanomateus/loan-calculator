@@ -14,7 +14,7 @@ Amortization Schedules
 
 .. include:: ./amortization_schedules.rst
 
-grossup
+Grossup
 -------
 
 .. include:: ./grossup.rst

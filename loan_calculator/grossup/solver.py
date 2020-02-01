@@ -51,27 +51,26 @@ def approximate_grossup(
     amortization_function: list, required
         A callable implementing the signature
         ::
-            a(float: principal, return_days: list, daily_aliquot)
-            -> list[float]
+            a(float: principal, return_days: list) -> list[float]
     return_days: list, required
         List of return days, where returns are expected to be performed.
     reduced_tax_function: Callable, required
         A callable implementing the signature
         ::
-            f(amortizations: list, return_days: list, daily_aliquot) -> float
+            f(amortizations: list, return_days: list) -> float
     complementary_tax_function: Callable, required
         A callable implementing the signature
         ::
-            c(principal: float, complementary_aliquot: float) -> float
+            c(principal: float) -> float
     service_fee_function: Callable, required
         A callable implementing the signature
         ::
-            g(principal: float, service_fee_aliquot: float) -> float
-    args: list, optional
-        Passed as optional positional arguments to scipy's `fsolve`.
-    kwargs: dict, optional
-        Passed as optional keyword arguments to scipy's `fsolve`.
-
+            g(principal: float) -> float
+    args
+        Passed as optional positional arguments to scipy's fsolve_.
+    kwargs
+        Passed as optional keyword arguments to scipy's fsolve_.
+    .. _fsolve: https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.optimize.fsolve.html#scipy.optimize.fsolve  # noqa: E501
     """
 
     # variables are renamed to make the math more explicit

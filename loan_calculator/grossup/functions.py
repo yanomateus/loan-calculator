@@ -22,15 +22,15 @@ def br_iof_regressive_price_grossup(
     - the principal and the payments are taxed by IOF,
     - a fee is calculated over the principal.
 
-    If :math:`S` is the principal, :math:`d` is the daily interest rate,
+    If :math:`s` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
     fee, :math:`g` is the service fee and :math:`(n_1,n_2,\\ldots,n_k)` is the
     vector with the return dates, then the grossup is given by
 
     .. math::
 
-        \\mathrm{GROSSUP}\\ (S, d, I^*, I^{**}, (n_1,\\ldots,n_k), g)
-        =\\frac{S}{1 - \\alpha - I^{**} - g},
+        \\mathrm{GROSSUP}\\ (s, d, I^*, I^{**}, (n_1,\\ldots,n_k), g)
+        =\\frac{s}{1 - \\alpha - I^{**} - g},
 
     where
 
@@ -99,14 +99,14 @@ def br_iof_progressive_price_grossup(
     - the principal is taxed, as well as its payments, by IOF
     - a fee is applied over the principal
 
-    If :math:`S` is the principal, :math:`d` is the daily interest rate,
+    If :math:`s` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
     fee, :math:`g` is the service fee and :math:`(n_1,n_2,\\ldots,n_k)` is the
     vector with the return dates, then the grossup is given by
 
     .. math::
-        \\mathrm{GROSSUP}(S, d, I^*, I^{**}, (n_1,\\ldots,n_k), g) =
-        \\frac{S}{1 - \\alpha - I^{**} - g },
+        \\mathrm{GROSSUP}(s, d, I^*, I^{**}, (n_1,\\ldots,n_k), g) =
+        \\frac{s}{1 - \\alpha - I^{**} - g },
 
     where
 
@@ -179,15 +179,15 @@ def br_iof_constant_amortization_grossup(
     - the principal and the payments are taxed with IOF,
     - a service fee is applied over the principal.
 
-    If :math:`S` is the principal, :math:`d` is the daily interest rate,
+    If :math:`s` is the principal, :math:`d` is the daily interest rate,
     :math:`I^*` is the daily IOF fee, :math:`I^{**}` is the complementary IOF
     fee, :math:`g` is the service fee and :math:`(n_1,n_2,\\ldots,n_k)` is the
     vector with the return dates, then the grossup is given by
 
     .. math::
 
-        \\mathrm{GROSSUP}(S, d, I^*, I^{**}, (n_1,\\ldots,n_k), g) =
-        \\frac{S} {1 - \\alpha - I^{**} - g},
+        \\mathrm{GROSSUP}(s, d, I^*, I^{**}, (n_1,\\ldots,n_k), g) =
+        \\frac{s} {1 - \\alpha - I^{**} - g},
 
     where
 

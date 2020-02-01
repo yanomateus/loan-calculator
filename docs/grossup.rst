@@ -4,11 +4,11 @@ principal.
 
 It seems fairly reasonable to assume the service fee is simply an aliquot
 applied over the principal so, if :math:`S` is the principal and :math:`\gamma` is
-the service fee aliquot, then the service if given by :math:`\gamma S`.
+the service fee aliquot, then the service fee given by :math:`\gamma S`.
 
 On the other hand, it is hard to pin down a reasonable and generic expression
-for a tax being applied over the principal, since taxes are very context bound
-and their rules might be revised as laws are amended.
+for due taxes, since they are very context bound and their rules might be
+revised as laws are amended.
 
 This is addressed by a grossup solver, which approximates solutions
 for the grossup problem given the user provides python implementations of some

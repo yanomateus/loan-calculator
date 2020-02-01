@@ -2,21 +2,24 @@ from loan_calculator.irr import approximate_irr
 
 
 class BaseGrossup(object):
-    """Base class for grossup implementations."""
+    """Base class for grossup implementations.
+
+    This base class is meant to be subclassed to specific implementations of
+    the grossup problem.
+
+    Parameters
+    ----------
+    base_loan : Loan, required
+        Loan to be grossed up.
+    reference_date : date, required
+        Reference used to the gross up evaluation. It is usually the date
+        of the associated taxable event.
+    args
+        Passed as args to grossup implementation.
+    """
 
     def __init__(self, base_loan, reference_date, *args):
-        """Initialize grossup.
-
-        Parameters
-        ----------
-        base_loan : Loan, required
-            Loan to be grossed up.
-        reference_date : date, required
-            Reference used to the gross up evaluation. It is usually the date
-            of the associated taxable event.
-        args
-            Passed as args to grossup implementation.
-        """
+        """Initialize grossup."""
 
         self.reference_date = reference_date
 
