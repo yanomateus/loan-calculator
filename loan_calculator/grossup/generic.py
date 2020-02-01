@@ -7,16 +7,17 @@ class GenericGrossup(BaseGrossup):
 
     def __init__(
         self,
-        loan,
+        base_loan,
         reference_date,
         amortization_function,
         reduced_tax_function,
         complementary_tax_function,
         service_fee_function,
     ):
+        """Initialize GenericGrossup."""
 
-        super(BaseGrossup, self).__init__(
-            loan,
+        super(GenericGrossup, self).__init__(
+            base_loan,
             reference_date,
             amortization_function,
             reduced_tax_function,
@@ -54,5 +55,5 @@ class GenericGrossup(BaseGrossup):
             loan.return_dates,
             loan.year_size,
             loan.grace_period,
-            loan.amortization_schedule_discriminator,
+            loan.amortization_schedule_type
         )

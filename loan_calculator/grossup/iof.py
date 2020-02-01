@@ -16,15 +16,15 @@ class IofGrossup(BaseGrossup):
 
     def __init__(
         self,
-        loan,
+        base_loan,
         reference_date,
         daily_iof_aliquot=0.000082,
         complementary_iof_aliquot=0.0038,
         service_fee=0.05
     ):
 
-        super(BaseGrossup, self).__init__(
-            loan,
+        super(IofGrossup, self).__init__(
+            base_loan,
             reference_date,
             daily_iof_aliquot,
             complementary_iof_aliquot,

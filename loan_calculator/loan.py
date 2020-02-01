@@ -17,7 +17,7 @@ class Loan(object):
         return_dates,
         year_size=365,
         grace_period=0,
-        amortization_schedule='progressive_price_schedule'
+        amortization_schedule_type='progressive_price_schedule'
     ):
         """Initialize loan.
 
@@ -39,7 +39,7 @@ class Loan(object):
         grace_period : int, optional
             The number of days for which the principal is not affected by the
             capitalization process. (default 0)
-        amortization_schedule : str, optional
+        amortization_schedule_type : str, optional
             A discriminator string indicating the amortization schedule to be
             adopted. The available schedules are progressive_price_schedule,
             regressive_price_schedule, constant_amortization_schedule.
@@ -65,15 +65,15 @@ class Loan(object):
         self.year_size = year_size
         self.grace_period = grace_period
 
-        self.amortization_schedule_discriminator = amortization_schedule
+        self.amortization_schedule_type = amortization_schedule_type
 
-        if amortization_schedule == 'progressive_price_schedule':
+        if amortization_schedule_type == 'progressive_price_schedule':
             self.amortization_schedule_cls = ProgressivePriceSchedule
 
-        elif amortization_schedule == 'regressive_price_schedule':
+        elif amortization_schedule_type == 'regressive_price_schedule':
             self.amortization_schedule_cls = RegressivePriceSchedule
 
-        elif amortization_schedule == 'constant_amortization_schedule':
+        elif amortization_schedule_type == 'constant_amortization_schedule':
             self.amortization_schedule_cls = ConstantAmortizationSchedule
 
         else:
@@ -96,32 +96,34 @@ class Loan(object):
 
     @property
     def return_days(self):
-        return self.amortization_schedule.return_days
+        return self.amortization_schedule.return_days  # pragma: no cover
 
     @property
     def balance(self):
-        return self.amortization_schedule.balance
+        return self.amortization_schedule.balance  # pragma: no cover
 
     @property
     def due_payments(self):
-        return self.amortization_schedule.due_payments
+        return self.amortization_schedule.due_payments  # pragma: no cover
 
     @property
     def interest_payments(self):
-        return self.amortization_schedule.interest_payments
+        return self.amortization_schedule.interest_payments  # pragma: no cover
 
     @property
     def amortizations(self):
-        return self.amortization_schedule.amortizations
+        return self.amortization_schedule.amortizations  # pragma: no cover
 
     @property
     def total_amortization(self):
-        return self.amortization_schedule.total_amortization
+        return (
+            self.amortization_schedule.total_amortization   # pragma: no cover
+        )
 
     @property
     def total_interest(self):
-        return self.amortization_schedule.total_interest
+        return self.amortization_schedule.total_interest  # pragma: no cover
 
     @property
     def total_paid(self):
-        return self.amortization_schedule.total_paid
+        return self.amortization_schedule.total_paid  # pragma: no cover
