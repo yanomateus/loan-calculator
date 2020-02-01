@@ -40,23 +40,14 @@ class IofGrossup(BaseGrossup):
         service_fee,
     ):
 
-        if loan.amortization_schedule_cls is RegressivePriceSchedule:
-            grossup_function = br_iof_regressive_price_grossup
-
-        elif loan.amortization_schedule_cls is ProgressivePriceSchedule:
-            grossup_function = br_iof_progressive_price_grossup
-
-        elif loan.amortization_schedule_cls is ConstantAmortizationSchedule:
-            grossup_function = br_iof_constant_amortization_grossup
-
-        else:
-            raise ValueError(
-                'Unknown amortization schedule class {}.'
-                .format(loan.amortization_schedule_cls.__name__)
-            )
+        dispatch_table = {
+            RegressivePriceSchedule: br_iof_regressive_price_grossup,
+            ProgressivePriceSchedule: br_iof_progressive_price_grossup,
+            ConstantAmortizationSchedule: br_iof_constant_amortization_grossup,
+        }
 
         return Loan(
-            grossup_function(
+            dispatch_table[loan.amortization_schedule_cls](
                 loan.principal,
                 loan.daily_interest_rate,
                 daily_iof_aliquot,
@@ -67,5 +58,10 @@ class IofGrossup(BaseGrossup):
                 ],
                 service_fee,
             ),
-            loan.daily_interest_rate, loan.start_date, loan.return_dates,
+            loan.annual_interest_rate,
+            loan.start_date,
+            loan.return_dates,
+            loan.year_size,
+            loan.grace_period,
+            loan.amortization_schedule_type
         )

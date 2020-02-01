@@ -35,21 +35,19 @@ class GenericGrossup(BaseGrossup):
         service_fee_function
     ):
 
-        grossed_up_principal = approximate_grossup(
-            loan.principal,
-            loan.daily_interest_rate,
-            [
-                (r_date - reference_date).days
-                for r_date in loan.return_dates
-            ],
-            amortization_function,
-            reduced_tax_function,
-            complementary_tax_function,
-            service_fee_function
-        )[0]
-
         return Loan(
-            grossed_up_principal,
+            approximate_grossup(
+                loan.principal,
+                loan.daily_interest_rate,
+                [
+                    (r_date - reference_date).days
+                    for r_date in loan.return_dates
+                ],
+                amortization_function,
+                reduced_tax_function,
+                complementary_tax_function,
+                service_fee_function
+            )[0],
             loan.annual_interest_rate,
             loan.start_date,
             loan.return_dates,
