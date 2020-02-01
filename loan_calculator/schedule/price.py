@@ -14,11 +14,6 @@ class BasePriceSchedule(BaseSchedule):
     """
 
     def __init__(self, principal, daily_interest_rate, return_days):
-        super(BasePriceSchedule, self).__init__(
-            principal,
-            daily_interest_rate,
-            return_days
-        )
 
         self.pmt = constant_return_pmt(
             principal,
@@ -26,16 +21,11 @@ class BasePriceSchedule(BaseSchedule):
             return_days
         )
 
-        self.due_payments = self.calculate_due_payments()
-        self.balance = self.calculate_balance()
-
-        self.interest_payments = getattr(
-            self, 'calculate_interest', np.zeros(len(return_days))
-        )()
-
-        self.amortizations = getattr(
-            self, 'calculate_amortizations', np.zeros(len(return_days))
-        )()
+        super(BasePriceSchedule, self).__init__(
+            principal,
+            daily_interest_rate,
+            return_days
+        )
 
     def calculate_balance(self):
         """Calculate the balance after each payment.

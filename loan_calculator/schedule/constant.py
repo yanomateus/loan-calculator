@@ -24,19 +24,6 @@ class ConstantAmortizationSchedule(BaseSchedule):
     - :math:`b_i = S - iA`.
     """
 
-    def __init__(self, principal, daily_interest_rate, return_days):
-
-        super(ConstantAmortizationSchedule, self).__init__(
-            principal,
-            daily_interest_rate,
-            return_days
-        )
-
-        self.balance = self.calculate_balance()
-        self.due_payments = self.calculate_due_payments()
-        self.interest_payments = self.calculate_interest()
-        self.amortizations = self.calculate_amortizations()
-
     def calculate_balance(self):
         """Calculate the balance after each payment.
 

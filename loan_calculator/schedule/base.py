@@ -22,6 +22,34 @@ class BaseSchedule(object):
         self.daily_interest_rate = daily_interest_rate
         self.return_days = return_days
 
+        self.balance = getattr(
+            self, 'calculate_balance', np.zeros(len(return_days) + 1)
+        )()
+
+        self.due_payments = getattr(
+            self, 'calculate_due_payments', np.zeros(len(return_days))
+        )()
+
+        self.interest_payments = getattr(
+            self, 'calculate_interest', np.zeros(len(return_days))
+        )()
+
+        self.amortizations = getattr(
+            self, 'calculate_amortizations', np.zeros(len(return_days))
+        )()
+
+    def calculate_due_payments(self, *args, **kwargs):
+        raise NotImplementedError  # pragma: nocover
+
+    def calculate_balance(self, *args, **kwargs):
+        raise NotImplementedError  # pragma: nocover
+
+    def calculate_interest_payments(self, *args, **kwargs):
+        raise NotImplementedError  # pragma: nocover
+
+    def calculate_amortizations(self, *args, **kwargs):
+        raise NotImplementedError  # pragma: nocover
+
     @property
     def total_paid(self):
         return np.sum(getattr(self, 'due_payments', 0.0))
