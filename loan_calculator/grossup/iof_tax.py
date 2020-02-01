@@ -82,7 +82,7 @@ def amortization_iof(amortization, num_days, daily_iof_aliquot=0.000082):
     return float(amortization * min(daily_iof_aliquot * num_days, 0.015))
 
 
-def complementary_iof(principal, complementary_iof_fee=0.038):
+def complementary_iof(principal, complementary_iof_fee=0.0038):
     """Complementary IOF tax over the principal.
 
     If :math:`S` is the principal and :math:`I^{**}` is the complementary IOF
