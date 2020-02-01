@@ -61,6 +61,7 @@ class IofGrossup(BaseGrossup):
         complementary_iof_aliquot=0.0038,
         service_fee_aliquot=0.0
     ):
+        """Initialize IOF grossup."""
 
         super(IofGrossup, self).__init__(
             base_loan,

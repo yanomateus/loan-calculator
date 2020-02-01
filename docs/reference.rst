@@ -13,6 +13,15 @@ Grossup
 .. automodule:: loan_calculator.grossup.functions
     :members:
 
+.. automodule:: loan_calculator.grossup.base
+    :members:
+
+.. automodule:: loan_calculator.grossup.iof
+    :members:
+
+.. automodule:: loan_calculator.grossup.generic
+    :members:
+
 .. automodule:: loan_calculator.grossup.iof_tax
     :members:
 

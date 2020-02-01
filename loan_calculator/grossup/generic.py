@@ -4,6 +4,12 @@ from loan_calculator.loan import Loan
 
 
 class GenericGrossup(BaseGrossup):
+    """Implement generic grossup.
+
+    Given python implementations of mathematical functions providing the
+    sequence of expected amortizations, taxes over the principal and
+    amortizations and service fee, this class will compute a grossed up loan.
+    """
 
     def __init__(
         self,
