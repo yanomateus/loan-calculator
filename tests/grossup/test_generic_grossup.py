@@ -15,7 +15,7 @@ def test_proper_grossup(loan):
     def f(*args, **kwargs):
         return 10.0
 
-    grossup_ = GenericGrossup(loan, loan.start_date, f, f, f, f)
+    grossup_ = GenericGrossup(loan, loan.start_date, f, f, f)
 
     assert_almost_equal(grossup_.grossed_up_principal, 130.0, decimal=2)
     assert_almost_equal(grossup_.base_principal, 100.0, decimal=2)
@@ -30,17 +30,9 @@ def test_generic_grossup_properly_applies_to_iof_grossup_case(build_loan):
 
     def _do_assert(loan):
 
-        def amortization_func(principal, daily_interest_rate, return_days):
-            return loan.amortization_schedule_cls(
-                principal,
-                daily_interest_rate,
-                return_days
-            ).amortizations
-
         generic_grossup = GenericGrossup(
             loan,
             loan.start_date,
-            amortization_func,
             amortization_schedule_iof,
             complementary_iof,
             linear_service_fee

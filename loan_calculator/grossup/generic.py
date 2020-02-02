@@ -15,17 +15,15 @@ class GenericGrossup(BaseGrossup):
         self,
         base_loan,
         reference_date,
-        amortization_function,
         reduced_tax_function,
         complementary_tax_function,
-        service_fee_function,
+        service_fee_function
     ):
         """Initialize GenericGrossup."""
 
         super(GenericGrossup, self).__init__(
             base_loan,
             reference_date,
-            amortization_function,
             reduced_tax_function,
             complementary_tax_function,
             service_fee_function,
@@ -35,7 +33,6 @@ class GenericGrossup(BaseGrossup):
         self,
         loan,
         reference_date,
-        amortization_function,
         reduced_tax_function,
         complementary_tax_function,
         service_fee_function
@@ -49,7 +46,7 @@ class GenericGrossup(BaseGrossup):
                     (r_date - reference_date).days
                     for r_date in loan.return_dates
                 ],
-                amortization_function,
+                loan.amortization_function,
                 reduced_tax_function,
                 complementary_tax_function,
                 service_fee_function

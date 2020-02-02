@@ -95,6 +95,17 @@ class Loan(object):
         )
 
     @property
+    def amortization_function(self):
+
+        def f_(principal, daily_interest_rate, return_days):
+
+            return self.amortization_schedule_cls(
+                principal, daily_interest_rate, return_days
+            ).amortizations
+
+        return f_
+
+    @property
     def return_days(self):
         return self.amortization_schedule.return_days  # pragma: no cover
 
