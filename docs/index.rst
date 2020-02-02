@@ -15,6 +15,7 @@ routines like
     :maxdepth: 3
     :caption: Contents:
 
+    Usage <usage.rst>
     Elementary Financial Mathematics <maths.rst>
     Reference <reference.rst>
     Contributing <contributing.rst>
