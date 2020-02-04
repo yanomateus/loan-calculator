@@ -2,15 +2,9 @@
 Reference
 =========
 
-
-PMT
----
-.. automodule:: loan_calculator.pmt
-    :members:
-
-Grossup
--------
-.. automodule:: loan_calculator.grossup.functions
+Public API
+----------
+.. automodule:: loan_calculator.loan
     :members:
 
 .. automodule:: loan_calculator.grossup.base
@@ -22,27 +16,48 @@ Grossup
 .. automodule:: loan_calculator.grossup.generic
     :members:
 
+pmt
+---
+.. automodule:: loan_calculator.pmt
+    :members:
+
+grossup.functions
+-----------------
+.. automodule:: loan_calculator.grossup.functions
+    :members:
+
+grossup.iof_tax
+---------------
 .. automodule:: loan_calculator.grossup.iof_tax
     :members:
 
-.. automodule:: loan_calculator.grossup.service_fee
-    :members:
-
+grossup.solver
+--------------
 .. automodule:: loan_calculator.grossup.solver
     :members:
 
-Amortization Schedules
-----------------------
+grossup.service_fee
+-------------------
+.. automodule:: loan_calculator.grossup.service_fee
+    :members:
+
+
+schedule.base
+-------------
 .. automodule:: loan_calculator.schedule.base
     :members:
 
+schedule.constant
+-----------------
 .. automodule:: loan_calculator.schedule.constant
     :members:
 
+schedule.price
+--------------
 .. automodule:: loan_calculator.schedule.price
     :members:
 
-Internal Return Rate
---------------------
+irr
+---
 .. automodule:: loan_calculator.irr
     :members:

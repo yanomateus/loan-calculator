@@ -1,12 +1,27 @@
 import numpy as np
 
 
-def display_summary(loan):
+def display_summary(loan, reference_date=None):
+    """Display a legible summary of a loan.
+
+    Parameters
+    ----------
+    loan : Loan, required
+        Loan to be displayed.
+    reference_date : date, optional
+        Date object with the date to consider as reference when calculating
+        the values of the column `day` in the function's output. (default None)
+    """
+
+    reference_date = reference_date or loan.start_date
+
+    dates = [reference_date] + loan.return_dates
+
     lines = list(
         zip(
-            [loan.start_date] + loan.return_dates,
-            map(lambda d: (d - loan.start_date).days,
-                [loan.start_date] + loan.return_dates),
+            dates,
+            map(lambda d: (d - reference_date).days,
+                dates),
             loan.balance,
             [''] + loan.amortizations.tolist(),
             [''] + loan.interest_payments.tolist(),

@@ -8,6 +8,32 @@ from loan_calculator.schedule import (
 
 
 class Loan(object):
+    """Loan.
+
+    Attributes
+    ----------
+    principal : float, required
+        The loan's principal.
+    annual_interest_rate : float, required
+        The loan's annual interest rate.
+    start_date : date, required
+        The loan's reference date. This date is usually the one when the
+        borrower signed the loan's contract.
+    return_dates : list, required
+        List of date objects with the expected return dates. These dates
+        are usually contractually agreed.
+    year_size : int, optional
+        The reference year size for converting from annual to daily
+        interest rates. (default 365)
+    grace_period : int, optional
+        The number of days for which the principal is not affected by the
+        capitalization process. (default 0)
+    amortization_schedule_type : str, optional
+        A discriminator string indicating the amortization schedule to be
+        adopted. The available schedules are progressive_price_schedule,
+        regressive_price_schedule, constant_amortization_schedule.
+        (default progressive_price_schedule).
+    """
 
     def __init__(
         self,
@@ -19,33 +45,7 @@ class Loan(object):
         grace_period=0,
         amortization_schedule_type='progressive_price_schedule'
     ):
-        """Initialize loan.
-
-        Parameters
-        ----------
-        principal : float, required
-            The loan's principal.
-        annual_interest_rate : float, required
-            The loan's annual interest rate.
-        start_date : date, required
-            The loan's reference date. This date is usually the one when the
-            borrower signed the loan's contract.
-        return_dates : list, required
-            List of date objects with the expected return dates. These dates
-            are usually contractually agreed.
-        year_size : int, optional
-            The reference year size for converting from annual to daily
-            interest rates. (default 365)
-        grace_period : int, optional
-            The number of days for which the principal is not affected by the
-            capitalization process. (default 0)
-        amortization_schedule_type : str, optional
-            A discriminator string indicating the amortization schedule to be
-            adopted. The available schedules are progressive_price_schedule,
-            regressive_price_schedule, constant_amortization_schedule.
-            (default progressive_price_schedule).
-
-        """
+        """Initialize loan."""
 
         self.principal = principal
 
