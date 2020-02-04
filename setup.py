@@ -38,9 +38,10 @@ setup(
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
+        'Intended Audience :: Financial and Insurance Industry',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
+        'Topic :: Office/Business :: Financial :: Accounting',
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
@@ -60,6 +61,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/yanomateus/loan-calculator',
-    version='0.1.0',
+    version='1.0.0',
     zip_safe=False,
 )
