@@ -6,8 +6,8 @@ interest portions in such a way that, after all payments are performed, neither
 principal or interest remain. The schedule according to which a loan is paid
 is called an *amortization schedule*.
 
-Let :math:`S` be the principal, :math:`d` the daily interest rate and
-:math:`n_i` the number of days since the loan was granted and the due date of
+Let :math:`s` be the principal, :math:`d` the daily interest rate and
+:math:`n_i` the number of days since the loan started until the due date of
 the :math:`i`-th payment. An amortization schedule must describe
 
 *   a sequence of payments :math:`P_1,P_2,\ldots,P_k`.
@@ -24,7 +24,7 @@ and these are such that
 
 .. math::
 
-    \sum_{i=1}^k A_i = S
+    \sum_{i=1}^k A_i = s
 
 holds. From the partitions and the sequence of payments one can define the
 balance after each payment by
@@ -35,7 +35,7 @@ balance after each payment by
     \begin{aligned}
         b_i &:=  b_{i-1}\ (1+d)^{n_i-n_{i-1}} - P_i,
         \ \mathrm{for}\ i,1\leq i\leq k,\ \mathrm{and}\\
-        b_0 &:= S
+        b_0 &:= s
     \end{aligned}
     \right..
 
@@ -46,8 +46,8 @@ date according to the loan's daily interest rate. The interest due to each
 payment is then defined as the difference between the PMT and the associated
 amortization. Therefore, the payments, amortization and interest are defined by
 
-*   :math:`P := \mathrm{PMT}(S,d,(n_1,\ldots,n_k))
-    = \displaystyle\frac{S}{\sum_{j=1}^k \frac{1}{(1+d)^{n_j}}},
+*   :math:`P := \mathrm{PMT}(s,d,(n_1,\ldots,n_k))
+    = \displaystyle\frac{s}{\sum_{j=1}^k \frac{1}{(1+d)^{n_j}}},
     \ \ \mathrm{for\ all}\ i,1\leq i\leq k`,
 *   :math:`A_i := P\ \displaystyle\frac{1}{(1+d)^{n_i}},
     \ \ \mathrm{for\ all}\ i,1\leq i\leq k`,
@@ -142,14 +142,13 @@ below.
 
 *Constant Amortization Schedule*. As the name implies, all amortizations are
 taken so to have the same value, which is obtained by equally dividing the
-principal into :math:`k` parts. The interest is then calculated over the last
-remaining balance and the payment value is defined as the sum of the
-amortization and interest. The amortizations, interest and payments are then
-given by
+principal into :math:`k` parts. The interest of each period is calculated over
+the last remaining balance, and this is added to the amortization to compound
+the due payment. These are given by
 
-*   :math:`A_i := \displaystyle\frac{S}{k},
-    \ \mathrm{for\ all}\ i,1\leq i\leq k`,
 *   :math:`J_i := S(1 - \displaystyle\frac{i-1}{k})((1+d)^{n_i-n_{i-1}} - 1),
+    \ \mathrm{for\ all}\ i,1\leq i\leq k`,
+*   :math:`A_i := \displaystyle\frac{S}{k},
     \ \mathrm{for\ all}\ i,1\leq i\leq k`,
 
 respectively. Note that the payments form a decreasing sequence, since the

@@ -14,11 +14,6 @@ class BasePriceSchedule(BaseSchedule):
     """
 
     def __init__(self, principal, daily_interest_rate, return_days):
-        super(BasePriceSchedule, self).__init__(
-            principal,
-            daily_interest_rate,
-            return_days
-        )
 
         self.pmt = constant_return_pmt(
             principal,
@@ -26,16 +21,11 @@ class BasePriceSchedule(BaseSchedule):
             return_days
         )
 
-        self.due_payments = self.calculate_due_payments()
-        self.balance = self.calculate_balance()
-
-        self.interest_payments = getattr(
-            self, 'calculate_interest', np.zeros(len(return_days))
-        )()
-
-        self.amortizations = getattr(
-            self, 'calculate_amortizations', np.zeros(len(return_days))
-        )()
+        super(BasePriceSchedule, self).__init__(
+            principal,
+            daily_interest_rate,
+            return_days
+        )
 
     def calculate_balance(self):
         """Calculate the balance after each payment.
@@ -44,11 +34,11 @@ class BasePriceSchedule(BaseSchedule):
 
         .. math::
 
-            b_i := S(1+d)^{n_i}(1 - \\frac{\\sum_{j=1}^i\\frac{1}{(1+d)^{n_j}}}
+            b_i := s(1+d)^{n_i}(1 - \\frac{\\sum_{j=1}^i\\frac{1}{(1+d)^{n_j}}}
                                         {\\sum_{j=1}^k\\frac{1}{(1+d)^{n_j}}}),
             \\mathrm{for}\\ i,0\\leq i\\leq k
 
-        where :math:`S` is the principal, :math:`d` is the daily interest rate
+        where :math:`s` is the principal, :math:`d` is the daily interest rate
         and :math:`n_1,\\ldots,n_k` are the return days.
 
         This equation can be directly deduced from the recursive definition
@@ -61,11 +51,11 @@ class BasePriceSchedule(BaseSchedule):
             \\begin{aligned}
                 b_{i-1}(1+d)^{n_i-n_{i-1}} - P,
                 &\\ \\mathrm{if}\\ i,1\\leq i\\leq k \\\\
-                S, &\\ \\mathrm{if}\\ i = 0
+                s, &\\ \\mathrm{if}\\ i = 0
             \\end{aligned}
             \\right.,
 
-        where :math:`P = \\mathrm{PMT}(S,d,(n_1,\\ldots,n_k))`.
+        where :math:`P = \\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`.
         """
 
         # variables are renamed to make the math more explicit
@@ -112,13 +102,13 @@ class ProgressivePriceSchedule(BasePriceSchedule):
     In this schedule, the amortization values increase over time, hence the
     name progressive.
 
-    If we denote by :math:`P` the instalment value, :math:`S` the principal,
+    If we denote by :math:`P` the instalment value, :math:`s` the principal,
     :math:`d` the daily interest rate, :math:`n_i` the number of days since the
     beginning of the operation until the :math:`i`-th due date, :math:`A_i`
     the :math:`i`-th amortization and :math:`J_i` the :math:`i`-th interest
     paid and :math:`b_i` the balance after the :math:`i`-th payment, then
 
-      - :math:`P=\\mathrm{PMT}(S,d,(n_1,\\ldots,n_k))`.
+      - :math:`P=\\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`.
       - :math:`b_i = b_{i-1}(1+d)^{n_i-n_{i-1}} - P`.
       - :math:`J_i = P - b_{i-1}((1+d)^{n_i-n_{i-1}}-1)`.
       - :math:`A_i = P - J_i`.
@@ -157,7 +147,7 @@ class ProgressivePriceSchedule(BasePriceSchedule):
             \\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
         where :math:`d` is the daily interest rate, :math:`n_1,\\ldots,n_k`
-        are the return days and :math:`P=\\mathrm{PMT}(S,d,(n_1,\\ldots,n_k))`.
+        are the return days and :math:`P=\\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`.
         """
 
         return np.array(
@@ -190,7 +180,7 @@ class RegressivePriceSchedule(BasePriceSchedule):
     the :math:`i`-th amortization and :math:`J_i` the :math:`i`-th interest
     paid and :math:`b_i` the balance after the :math:`i`-th payment, then
 
-      - :math:`P=\\mathrm{PMT}(S,d,(n_1,\\ldots,n_k))`.
+      - :math:`P=\\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`.
       - :math:`b_i = b_{i-1}(1+d)^{n_i-n_{i-1}} - P`.
       - :math:`A_i = \\displaystyle\\frac{P}{(1+d)^{n_i}}`.
       - :math:`J_i = P(1 - \\displaystyle\\frac{P}{(1+d)^{n_i}})`.
@@ -209,7 +199,7 @@ class RegressivePriceSchedule(BasePriceSchedule):
 
         where :math:`d` is the daily interest rate, :math:`n_i` is the
         :math:`i`-th return date and
-        :math:`P = \\mathrm{PMT}(S,d,(n_1,\\ldots,n_k))`
+        :math:`P = \\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`
         """
 
         return np.array(
@@ -233,7 +223,7 @@ class RegressivePriceSchedule(BasePriceSchedule):
 
         where :math:`d` is the daily interest rate, :math:`n_i` is the
         :math:`i`-th return date and
-        :math:`P = \\mathrm{PMT}(S,d,(n_1,\\ldots,n_k))`
+        :math:`P = \\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`
         """
 
         return np.array(

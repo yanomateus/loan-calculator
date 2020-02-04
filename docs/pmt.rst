@@ -1,4 +1,4 @@
-Let :math:`S` be the principal,
+Let :math:`s` be the principal,
 :math:`d` the daily interest rate and :math:`n_i` the number of days since the
 principal was granted until the due date of the :math:`i`-th payment, for
 :math:`i,1\leq i\leq k`. We want to
@@ -13,16 +13,17 @@ Then
 .. math::
 
     \frac{P}{(1+d)^{n_1}} + \frac{P}{(1+d)^{n_2}} + \cdots +
-    \frac{P}{(1+d)^{n_k}} = S
+    \frac{P}{(1+d)^{n_k}} = s
 
 and it follows that
 
 .. math::
 
-    P\ \sum_{i=1}^k \frac{1}{(1+d)^{n_i}} = S.
+    P\ \sum_{i=1}^k \frac{1}{(1+d)^{n_i}} = s.
 
 Therefore, the PMT can be defined as
 
 .. math::
 
-    \mathrm{PMT}(S,d,(n_1,\ldots,n_k)) := \frac{S}{\sum_{i=1}^k \frac{1}{(1+d)^{n_i}}}.
+    \mathrm{PMT}(s,d,(n_1,\ldots,n_k)) :=
+    \frac{s}{\displaystyle\sum_{i=1}^k \frac{1}{(1+d)^{n_i}}}.

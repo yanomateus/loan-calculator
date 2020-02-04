@@ -1,15 +1,16 @@
-# TODO: principal and return should be modeled as monetary quantities
+
+
 def constant_return_pmt(principal, daily_interest_rate, return_days):
     """Calculate the PMT (payment value) for the given parameters.
 
-    If :math:`S` is the principal, :math:`d` is the daily interest rate and
+    If :math:`s` is the principal, :math:`d` is the daily interest rate and
     :math:`(n_1,\\ldots,n_k)` is the vector with the number of days since the
     start reference date, then the PMT is given by
 
     .. math::
 
-        \\mathrm{PMT}\\ (S, d, (n_1,\\ldots,n_k)) =
-        \\frac{S}{\\sum\\frac{1}{(1+d)^{n_j}}},
+        \\mathrm{PMT}\\ (s, d, (n_1,\\ldots,n_k)) =
+        \\frac{s}{\\sum\\frac{1}{(1+d)^{n_j}}},
 
     where the sum is taken for :math:`j,1\\leq j\\leq k`.
 
@@ -32,16 +33,5 @@ def constant_return_pmt(principal, daily_interest_rate, return_days):
     # variables are renamed in order to make the math more explicit
     p = principal
     d = daily_interest_rate
-
-    if p <= 0:
-        raise ValueError('Principal must be a positive real number.')
-
-    if daily_interest_rate < 0.0:
-        raise ValueError(
-            'Daily interest rate must be a non-negative real number.'
-        )
-
-    if any(map(lambda x: x < 0, return_days)):
-        raise ValueError('Return days must be non-negative.')
 
     return p / sum(1.0 / (1 + d) ** n for n in return_days)

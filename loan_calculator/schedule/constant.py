@@ -8,7 +8,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
     The constant amortization schedule is defined as the amortization schedule
     where all the amortizations have the same value, given as
-    :math:`S/k`, where :math:`S` is the principal and :math:`k`
+    :math:`s/k`, where :math:`s` is the principal and :math:`k`
     is the number of due payments. Therefore, the due payments do not
     have all the same value, as in the French system, but differ
     according to how much interest was accumulated over time. If
@@ -17,25 +17,12 @@ class ConstantAmortizationSchedule(BaseSchedule):
     and interest, respectively, and :math:`b_i` is the balance after the
     :math:`i`-th payment, then
 
-    - :math:`A_i = \\frac{S}{k}`.
+    - :math:`A_i = \\frac{s}{k}`.
     - :math:`J_i = ((1+d)^{n_i} - (1+d)^{n_{i-1}})
-      (S - A\\displaystyle\\sum_{1\\leq j\\leq i-1}\\frac{1}{(1+d)^{n_j}})`.
+      (s - A\\displaystyle\\sum_{1\\leq j\\leq i-1}\\frac{1}{(1+d)^{n_j}})`.
     - :math:`P_i = A + J_i`.
-    - :math:`b_i = S - iA`.
+    - :math:`b_i = s - iA`.
     """
-
-    def __init__(self, principal, daily_interest_rate, return_days):
-
-        super(ConstantAmortizationSchedule, self).__init__(
-            principal,
-            daily_interest_rate,
-            return_days
-        )
-
-        self.balance = self.calculate_balance()
-        self.due_payments = self.calculate_due_payments()
-        self.interest_payments = self.calculate_interest()
-        self.amortizations = self.calculate_amortizations()
 
     def calculate_balance(self):
         """Calculate the balance after each payment.
@@ -44,10 +31,10 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
         .. math::
 
-            b_i := S(1 - \\frac{i}{k}),
+            b_i := s(1 - \\frac{i}{k}),
             \\ \\mathrm{for\\ all}\\ i,0\\leq i\\leq k,
 
-        where :math:`S` is the principal and :math:`k` is the number of
+        where :math:`s` is the principal and :math:`k` is the number of
         instalments.
         """
 
@@ -69,9 +56,9 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
         .. math::
 
-            A_i := \\frac{S}{k},\\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
+            A_i := \\frac{s}{k},\\mathrm{for\\ all}\\ i,1\\leq i\\leq k,
 
-        where :math:`S` is the principal and :math:`k` is the number of
+        where :math:`s` is the principal and :math:`k` is the number of
         instalments.
         """
 
