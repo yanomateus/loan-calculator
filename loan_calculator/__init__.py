@@ -38,4 +38,4 @@ __all__ = [
 
 __author__ = """Mateus Yano"""
 __email__ = 'yano.mateus@gmail.com'
-__version__ = '1.0.0'
+__version__ = '1.1.0'
