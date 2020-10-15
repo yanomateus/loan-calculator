@@ -28,15 +28,6 @@ loan\_calculator.grossup.service\_fee module
     :undoc-members:
     :show-inheritance:
 
-loan\_calculator.grossup.solver module
---------------------------------------
-
-.. automodule:: loan_calculator.grossup.solver
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
 Module contents
 ---------------
 

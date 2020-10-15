@@ -140,7 +140,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     (master_doc, 'loan_calculator',
-     u'Loan Cashflow Calculator Documentation',
+     u'Loan Calculator Documentation',
      [author], 1)
 ]
 
@@ -152,7 +152,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'loan_calculator',
-     u'Loan Cashflow Calculator Documentation',
+     u'Loan Calculator Documentation',
      author,
      'loan_calculator',
      'One line description of project.',
