@@ -26,13 +26,11 @@
 
 from loan_calculator.loan import Loan
 from loan_calculator.utils import display_summary
-from loan_calculator.grossup.generic import GenericGrossup
 from loan_calculator.grossup.iof import IofGrossup
 from loan_calculator.projection import Projection
 
 __all__ = [
     'Loan',
-    'GenericGrossup',
     'IofGrossup',
     'Projection',
     'display_summary',

@@ -1,5 +1,4 @@
 from loan_calculator.grossup.iof import IofGrossup
-from loan_calculator.grossup.generic import GenericGrossup
 
 
 class Projection(object):
@@ -10,18 +9,14 @@ class Projection(object):
     """
 
     def __init__(
-        self, loan, projection_dates, grossup_type='generic', *args
+        self, loan, projection_dates, grossup_type='iof', *args
     ):
 
         self.loan = loan
         self.projection_dates = projection_dates
 
-        if grossup_type == 'generic':
-            self.grossup_cls = GenericGrossup
-
-        elif grossup_type == 'iof':
+        if grossup_type == 'iof':
             self.grossup_cls = IofGrossup
-
         else:
             raise TypeError('Unknown grossup type.')
 
