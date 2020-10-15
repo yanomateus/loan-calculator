@@ -13,9 +13,6 @@ Public API
 .. automodule:: loan_calculator.grossup.iof
     :members:
 
-.. automodule:: loan_calculator.grossup.generic
-    :members:
-
 pmt
 ---
 .. automodule:: loan_calculator.pmt
@@ -31,16 +28,10 @@ grossup.iof_tax
 .. automodule:: loan_calculator.grossup.iof_tax
     :members:
 
-grossup.solver
---------------
-.. automodule:: loan_calculator.grossup.solver
-    :members:
-
 grossup.service_fee
 -------------------
 .. automodule:: loan_calculator.grossup.service_fee
     :members:
-
 
 schedule.base
 -------------
