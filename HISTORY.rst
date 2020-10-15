@@ -2,6 +2,14 @@
 History
 =======
 
+1.1.0 (2020-10-15)
+------------------
+
+* Remove generic grossup solver. Only direct implementation of mathematical
+  models should be encouraged
+
+* drop python 2 support
+
 1.0.0 (2020-02-03)
 ------------------
 
