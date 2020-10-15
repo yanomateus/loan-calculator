@@ -2,8 +2,6 @@
 
 """The setup script."""
 
-import sys
-
 from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
@@ -15,18 +13,10 @@ with open('HISTORY.rst') as history_file:
 with open('LICENSE') as license_file:
     license_ = license_file.read()
 
-if sys.version_info.major == 2 and sys.version_info.minor == 7:
-    requirements = [
-        'numpy==1.16.6',
-        'scipy==1.2.2',
-    ]
-elif sys.version_info.major == 3:
-    requirements = [
-        'numpy == 1.17.4',
-        'scipy == 1.3.3',
-    ]
-else:
-    raise RuntimeError('Unsupported python version!')
+requirements = [
+    'numpy',
+    'scipy',
+]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -35,15 +25,13 @@ test_requirements = ['pytest>=3', ]
 setup(
     author="Mateus Yano",
     author_email='yano.mateus@gmail.com',
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
+    python_requires='!=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Financial and Insurance Industry',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Topic :: Office/Business :: Financial :: Accounting',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
