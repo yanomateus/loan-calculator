@@ -13,10 +13,6 @@ with open('HISTORY.rst') as history_file:
 with open('LICENSE') as license_file:
     license_ = license_file.read()
 
-requirements = [
-    'numpy',
-    'scipy',
-]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -38,7 +34,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     description="Loan Calculator",
-    install_requires=requirements,
+    install_requires=[],
     license="MIT license",
     long_description=readme + '\n\n' + history + '\n\n' + license_,
     include_package_data=True,
