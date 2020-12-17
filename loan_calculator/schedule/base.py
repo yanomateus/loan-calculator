@@ -1,6 +1,3 @@
-import numpy as np
-
-
 class BaseSchedule(object):
     """Base amortization schedule.
 
@@ -34,19 +31,19 @@ class BaseSchedule(object):
         self.return_days = return_days
 
         self.balance = getattr(
-            self, 'calculate_balance', np.zeros(len(return_days) + 1)
+            self, 'calculate_balance', (len(return_days) + 1) * [0]
         )()
 
         self.due_payments = getattr(
-            self, 'calculate_due_payments', np.zeros(len(return_days))
+            self, 'calculate_due_payments', len(return_days) * [0]
         )()
 
         self.interest_payments = getattr(
-            self, 'calculate_interest', np.zeros(len(return_days))
+            self, 'calculate_interest', len(return_days) * [0]
         )()
 
         self.amortizations = getattr(
-            self, 'calculate_amortizations', np.zeros(len(return_days))
+            self, 'calculate_amortizations', len(return_days) * [0]
         )()
 
     def calculate_due_payments(self):
@@ -63,12 +60,12 @@ class BaseSchedule(object):
 
     @property
     def total_paid(self):
-        return np.sum(getattr(self, 'due_payments', 0.0))
+        return sum(getattr(self, 'due_payments', 0.0))
 
     @property
     def total_amortization(self):
-        return np.sum(getattr(self, 'amortizations', 0.0))
+        return sum(getattr(self, 'amortizations', 0.0))
 
     @property
     def total_interest(self):
-        return np.sum(getattr(self, 'interest_payments', 0.0))
+        return sum(getattr(self, 'interest_payments', 0.0))

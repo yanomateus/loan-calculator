@@ -1,5 +1,3 @@
-import numpy as np
-
 from loan_calculator.schedule.base import BaseSchedule
 
 
@@ -40,13 +38,7 @@ class ConstantAmortizationSchedule(BaseSchedule):
 
         k = len(self.return_days)
 
-        return np.array(
-            [
-                self.principal * (1 - float(i) / k)
-                for i in range(k + 1)
-            ],
-            dtype=float
-        )
+        return [self.principal * (1 - float(i) / k) for i in range(k + 1)]
 
     def calculate_amortizations(self):
         """Calculate the amortizations by payments.
@@ -62,13 +54,10 @@ class ConstantAmortizationSchedule(BaseSchedule):
         instalments.
         """
 
-        return np.array(
-            [
-                self.principal / len(self.return_days)
-                for _ in self.return_days
-            ],
-            dtype=float
-        )
+        return [
+            self.principal / len(self.return_days)
+            for _ in self.return_days
+        ]
 
     def calculate_interest(self):
         """Calculate the interest in each payment.
@@ -87,15 +76,12 @@ class ConstantAmortizationSchedule(BaseSchedule):
         # rename variable to make the math more explicit
         d = self.daily_interest_rate
 
-        return np.array(
-            [
-                b * ((1 + d) ** (n - m) - 1)
-                for b, n, m in zip(self.balance[:-1],
-                                   self.return_days,
-                                   [0] + self.return_days[:-1])
-            ],
-            dtype=float
-        )
+        return [
+            b * ((1 + d) ** (n - m) - 1)
+            for b, n, m in zip(self.balance[:-1],
+                               self.return_days,
+                               [0] + self.return_days[:-1])
+        ]
 
     def calculate_due_payments(self):
         """Calculate the due payments.
@@ -120,10 +106,10 @@ class ConstantAmortizationSchedule(BaseSchedule):
         d = self.daily_interest_rate
         k = len(self.return_days)
 
-        return np.array(
-            [b * ((1 + d) ** (n - m) - 1) + p / k
-             for b, n, m in zip(self.balance[:-1],
-                                self.return_days,
-                                [0] + self.return_days[:-1])],
-            dtype=float
-        )
+        return [
+            b * ((1 + d) ** (n - m) - 1) + p / k
+            for b, n, m in zip(
+                self.balance[:-1],
+                self.return_days, [0] + self.return_days[:-1]
+            )
+        ]

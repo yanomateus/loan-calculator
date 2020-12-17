@@ -1,7 +1,6 @@
-from datetime import date
-
 import pytest
-from numpy.testing import assert_almost_equal
+
+from datetime import date
 
 from loan_calculator.loan import Loan
 
@@ -20,37 +19,16 @@ args_ = (
 def test_very_large_year_size():
     """Assert trivial year provides equal amortizations."""
 
-    def _do_assert(schedule):
+    def _do_assert(schedule_):
         loan = Loan(
             *args_,
             year_size=100000,
-            # grace_period=0,
-            amortization_schedule_type=schedule
+            grace_period=0,
+            amortization_schedule_type=schedule_
         )
 
-        assert_almost_equal(
-            [250.0, 250.0, 250.0, 250.0],
-            loan.amortizations,
-            2,
-            'Unexpected amortizations for schedule %s'
-            % schedule,
-        )
-
-        assert_almost_equal(
-            [0.0, 0.0, 0.0, 0.0],
-            loan.interest_payments,
-            2,
-            'Unexpected interests for schedule %s'
-            % schedule
-        )
-
-        assert_almost_equal(
-            loan.due_payments,
-            loan.amortizations,
-            2,
-            'Unexpected payments/amortizations for schedule %s'
-            % schedule
-        )
+        assert loan.amortizations == pytest.approx([250.0, 250.0, 250.0, 250.0], rel=0.01)  # noqa
+        assert loan.amortizations == pytest.approx(loan.amortizations)
 
     for schedule in [
         'progressive_price_schedule',
