@@ -1,60 +1,74 @@
-def _solve(target_function, lowerbound, upperbound, allowed_error=0.00000001):
-    """Approximate the root of a target function using bisection search.
+def newton_raphson_solver(
+    target_function,
+    target_function_derivative,
+    initial_point,
+    maximum_relative_error=0.0000000001,
+    max_iterations=100,
+):
+    """Numerical solver based on Newton-Raphson approximation method.
 
-    Parameters
-    ----------
+    The Newton-Raphson method allows algorithmic approximation for the root
+    of a differentiable function, given its derivative and an initial point at
+    which this derivative does not vanish.
 
-    target_function: callable, required
-        Python callable accepting a single numerical argument and returning a
-        single numerical valued.
-    lowerbound: float, required
-        Known lowerbound for a root of the target function.
-    upperbound: float, required
-        Known upperbound for a root of the target function.
-    allowed_error: float, optional
-        Maximum allowed error (default is 0.00000001)
+    Let :math:`f:\\left[a,b\\right]\\longrightarrow\\mathbb{R}` a
+    differentiable function, :math:`f^{\\prime}` its derivative function and
+    :math:`x_0\\in\\left[a,b\\right]`. A root of :math:`f` is then iteratively
+    approximated by the recurrence
+
+    .. math::
+
+        x_n := x_{n-1} - \\frac{f(x_{n-1})}{f^{\\prime}(x_{n-1})}, n\\geq 1.
+
+    The *relative error* associated with the :math:`n`-th iteration of the
+    recurrence above is defined as
+
+    .. math::
+
+        e_n := | \\frac{x_n - x_{n-1}}{x_{n-1}} |, n \\geq 1.
+
+    The approximation stops if either :math:`e_n` > `maximum_relative_error`
+    or :math:`n` > `max_iterations`.
     """
 
-    if lowerbound >= upperbound:
+    def _iterating_function(x):
+        return x - target_function(x) / target_function_derivative(x)
 
-        raise ValueError('must be lowerbound < upperbound')
+    def _error_function(reference_point, new_point):
+        return abs((new_point - reference_point) / reference_point)
 
-    if target_function(lowerbound) * target_function(upperbound) >= 0:
+    past_point = initial_point
+    iterating_point = _iterating_function(past_point)
 
-        raise ValueError(
-            'target function values must switch sings at the interval limits'
+    relative_error = _error_function(past_point, iterating_point)
+
+    num_iterations = 1
+
+    while (
+        relative_error >= maximum_relative_error and
+        num_iterations < max_iterations
+    ):
+
+        past_point, iterating_point = (
+            iterating_point, _iterating_function(iterating_point)
         )
+        relative_error = _error_function(past_point, iterating_point)
 
-    current_error_bound = upperbound - lowerbound
+        num_iterations += 1
 
-    while current_error_bound > allowed_error:
-
-        mid_point = (upperbound + lowerbound) / 2
-
-        if target_function(mid_point) > 0:
-
-            upperbound = mid_point
-
-        else:
-
-            lowerbound = mid_point
-
-        current_error_bound = upperbound - lowerbound
-
-    return lowerbound
+    return iterating_point
 
 
 def approximate_irr(
     net_principal,
     returns,
     return_days,
-    irr_lowerbound=0,
-    irr_upperbound=10
+    daily_interest_rate,
 ):
     """Approximate the internal return rate of a series of returns.
 
-    Use a bisection solver implementation to approximate the irr for the given
-    parameters.
+    Use a Newton-Raphson solver implementation to approximate the IRR for the
+    given loan parameters.
 
     Let :math:`s_\\circ` be a net principal (i.e., a principal with eventual
     taxes and fees properly deduced), :math:`r_1,r_2\\ldots,r_k` a sequence of
@@ -64,14 +78,26 @@ def approximate_irr(
 
     .. math::
 
-        f(X) = s_\\circ X^{n_k} - r_k X^{n_k-n_1} - \\cdots
-        - r_2 X^{n_k-n_{k-1}} - r_1
+        f(X) = s_\\circ X^{n_k} - r_1 X^{n_k-n_1} - \\cdots
+        - r_{k-1} X^{n_k-n_{k-1}} - r_k
 
     on the real unknown
 
     .. math::
 
         X = 1 + c.
+
+    The derivative of :math:`f` is given by
+
+    .. math::
+
+        f^\\prime (X) = n_k s_\\circ X^{n_k - 1}
+        - \\sum_{i=1}^{k-1} (n_k - n_i) r_i X^{n_k - n_i - 1}.
+
+    The polynomial :math:`f` and its derivative derivative :math:`f^\\prime`
+    are implemented as Python callables and passed to the Newton-Raphson
+    search implementation with the daily interest rate as initial approximation
+    for the IRR.
 
     Parameters
     ----------
@@ -85,25 +111,44 @@ def approximate_irr(
     return_days: list, required
         List of number of days since the loan was granted until each expected
         return.
-    irr_lowerbound: float, optional
-        Known lowerbound for the irr. If no bound is provided, the trivial
-        bound 0 is assumed.
-    irr_upperbound: float, optional
-        Known upperbound the irr (default 10.)
+    daily_interest_rate: float, required
+        Loan's daily interest rate (for the grossed up principal), used as the
+        start point for the approximation of the IRR.
     """
-
-    r_days = return_days
 
     coefficients_vec = [net_principal] + [-1 * r for r in returns]
 
     def return_polynomial(irr_):
 
-        powers_vec = [(1 + irr_) ** (r_days[-1] - n) for n in [0] + r_days]
+        powers_vec = [
+            (1 + irr_) ** (return_days[-1] - n) for n in [0] + return_days
+        ]
 
         return sum(
-            coef * power for coef, power in zip(coefficients_vec, powers_vec)
+            coef * power
+            for coef, power in zip(coefficients_vec, powers_vec)
         )
 
-    return _solve(
-        return_polynomial, lowerbound=irr_lowerbound, upperbound=irr_upperbound
+    derivative_coefficients_vec = [
+        net_principal * (return_days[-1] - return_days[-2])
+    ] + [
+        r * (return_days[-1] - r_day)
+        # last term does not need to be evaluated
+        for r, r_day in zip(returns[:-1], return_days[:-1])
+    ]
+
+    def return_polynomial_derivative(irr_):
+
+        powers_vec = [
+            (1 + irr_) ** (return_days[-1] - r_day - 1)
+            for r_day in return_days
+        ]
+
+        return sum(
+            coef * power
+            for coef, power in zip(derivative_coefficients_vec, powers_vec)
+        )
+
+    return newton_raphson_solver(
+        return_polynomial, return_polynomial_derivative, daily_interest_rate
     )
