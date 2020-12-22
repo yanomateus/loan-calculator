@@ -2,6 +2,12 @@
 History
 =======
 
+1.2.0 (2020-12-17)
+------------------
+
+* Implement Newton-Raphson based solver to approximate IRR
+* Remove dependency on `scipy` and `numpy`
+
 1.1.0 (2020-10-15)
 ------------------
 
