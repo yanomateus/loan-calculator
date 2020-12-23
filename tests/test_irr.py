@@ -1,11 +1,8 @@
-from numpy.testing import assert_almost_equal
+import pytest
 
 from loan_calculator.irr import approximate_irr
 
 
 def test_approximate_irr():
 
-    assert_almost_equal(
-        approximate_irr(1.0, [1.0, 1.0], [1, 2]),
-        0.618033988749895
-    )
+    assert approximate_irr(1.0, [1.0, 1.0], [1, 2], 0.5) == pytest.approx(0.618033988749895)  # noqa

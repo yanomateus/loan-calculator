@@ -1,4 +1,4 @@
-import numpy as np
+import pytest
 
 from loan_calculator.schedule.constant import ConstantAmortizationSchedule
 
@@ -15,23 +15,16 @@ def test_constant_amortization_schedule():
         return_days
     )
 
-    expected_amortizations = np.array([160, 160, 160, 160, 160], dtype=float)
-    expected_balances = np.array([800, 640, 480, 320, 160, 0], dtype=float)
-    expected_interests = np.array([640, 512, 384, 256, 128], dtype=float)
-    expected_payments = np.array([800, 672, 544, 416, 288], dtype=float)
+    expected_amortizations = [160, 160, 160, 160, 160]
+    expected_balances = [800, 640, 480, 320, 160, 0]
+    expected_interests = [640, 512, 384, 256, 128]
+    expected_payments = [800, 672, 544, 416, 288]
 
-    np.testing.assert_almost_equal(
-        schedule.amortizations, expected_amortizations
-    )
+    assert schedule.amortizations == pytest.approx(expected_amortizations, rel=0.01)  # noqa
+    assert schedule.balance == pytest.approx(expected_balances, rel=0.01)
+    assert schedule.interest_payments == pytest.approx(expected_interests, rel=0.01)  # noqa
+    assert schedule.due_payments == pytest.approx(expected_payments, rel=0.01)
 
-    np.testing.assert_almost_equal(schedule.balance, expected_balances)
-
-    np.testing.assert_almost_equal(
-        schedule.interest_payments, expected_interests
-    )
-
-    np.testing.assert_almost_equal(schedule.due_payments, expected_payments)
-
-    np.testing.assert_almost_equal(schedule.total_amortization, principal)
-    np.testing.assert_almost_equal(schedule.total_interest, 1920.00)
-    np.testing.assert_almost_equal(schedule.total_paid, 2720.00)
+    assert schedule.total_amortization == pytest.approx(principal, rel=0.01)
+    assert schedule.total_interest == pytest.approx(1920.00, rel=0.01)
+    assert schedule.total_paid == pytest.approx(2720.00, rel=0.01)

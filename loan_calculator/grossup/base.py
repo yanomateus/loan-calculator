@@ -1,4 +1,11 @@
+from enum import Enum
+
 from loan_calculator.irr import approximate_irr
+
+
+class GrossupType(Enum):
+
+    iof = 'iof'
 
 
 class BaseGrossup(object):
@@ -43,12 +50,13 @@ class BaseGrossup(object):
 
     @property
     def irr(self):
-        """The IRR affecting the net principal."""
+        """Approximation for the IRR affecting the net principal."""
         return approximate_irr(
             self.base_principal,
             self.grossed_up_loan.due_payments,
             [
                 (r_date - self.reference_date).days
                 for r_date in self.base_loan.return_dates
-            ]
+            ],
+            self.base_loan.daily_interest_rate
         )

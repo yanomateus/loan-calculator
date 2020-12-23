@@ -1,7 +1,7 @@
-import numpy as np
-
 from loan_calculator.pmt import constant_return_pmt
-from loan_calculator.schedule.base import BaseSchedule
+from loan_calculator.schedule.base import (
+    BaseSchedule, AmortizationScheduleType
+)
 
 
 class BasePriceSchedule(BaseSchedule):
@@ -63,17 +63,14 @@ class BasePriceSchedule(BaseSchedule):
         d = self.daily_interest_rate
         r_days = self.return_days
 
-        return np.array(
-            [
-                (p *
-                 ((1 + d) ** n) *
-                 (1 -
-                  sum(1 / (1 + d) ** m for m in r_days if m <= n) /
-                  sum(1 / (1 + d) ** m for m in r_days)))
-                for n in [0] + r_days
-            ],
-            dtype=float
-        )
+        return [
+            (p *
+             ((1 + d) ** n) *
+             (1 -
+              sum(1 / (1 + d) ** m for m in r_days if m <= n) /
+              sum(1 / (1 + d) ** m for m in r_days)))
+            for n in [0] + r_days
+        ]
 
     def calculate_due_payments(self):
         """Calculate due payments.
@@ -81,10 +78,7 @@ class BasePriceSchedule(BaseSchedule):
         Since this is a Price schedule, all due payments have the same value.
         """
 
-        return np.array(
-            [self.pmt for _ in self.return_days],
-            dtype=float
-        )
+        return [self.pmt for _ in self.return_days]
 
 
 class ProgressivePriceSchedule(BasePriceSchedule):
@@ -114,6 +108,8 @@ class ProgressivePriceSchedule(BasePriceSchedule):
       - :math:`A_i = P - J_i`.
     """
 
+    schedule_type = AmortizationScheduleType.progressive_price_schedule
+
     def calculate_interest(self):
         """Calculate interest in each payment.
 
@@ -128,13 +124,10 @@ class ProgressivePriceSchedule(BasePriceSchedule):
         and :math:`n_1,\\ldots,n_k` are the return days.
         """
 
-        return np.array(
-            [
-                self.pmt * (1.0 - 1.0 / (1 + self.daily_interest_rate) ** n)
-                for n in self.return_days[::-1]
-            ],
-            dtype=float
-        )
+        return [
+            self.pmt * (1.0 - 1.0 / (1 + self.daily_interest_rate) ** n)
+            for n in self.return_days[::-1]
+        ]
 
     def calculate_amortizations(self):
         """Calculate the principal amortization due to each payment.
@@ -150,13 +143,10 @@ class ProgressivePriceSchedule(BasePriceSchedule):
         are the return days and :math:`P=\\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`.
         """
 
-        return np.array(
-            [
-                self.pmt / (1 + self.daily_interest_rate) ** n
-                for n in self.return_days[::-1]
-            ],
-            dtype=float
-        )
+        return [
+            self.pmt / (1 + self.daily_interest_rate) ** n
+            for n in self.return_days[::-1]
+        ]
 
 
 class RegressivePriceSchedule(BasePriceSchedule):
@@ -186,6 +176,8 @@ class RegressivePriceSchedule(BasePriceSchedule):
       - :math:`J_i = P(1 - \\displaystyle\\frac{P}{(1+d)^{n_i}})`.
     """
 
+    schedule_type = AmortizationScheduleType.regressive_price_schedule
+
     def calculate_amortizations(self):
         """Calculate the amortization due to each payment.
 
@@ -202,13 +194,10 @@ class RegressivePriceSchedule(BasePriceSchedule):
         :math:`P = \\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`
         """
 
-        return np.array(
-            [
-                self.pmt / (1 + self.daily_interest_rate) ** n
-                for n in self.return_days
-            ],
-            dtype=float
-        )
+        return [
+            self.pmt / (1 + self.daily_interest_rate) ** n
+            for n in self.return_days
+        ]
 
     def calculate_interest(self):
         """Calculate the interest in each payment.
@@ -226,10 +215,7 @@ class RegressivePriceSchedule(BasePriceSchedule):
         :math:`P = \\mathrm{PMT}(s,d,(n_1,\\ldots,n_k))`
         """
 
-        return np.array(
-            [
-                self.pmt * (1 - 1.0 / (1 + self.daily_interest_rate) ** n)
-                for n in self.return_days
-            ],
-            dtype=float
-        )
+        return [
+            self.pmt * (1 - 1.0 / (1 + self.daily_interest_rate) ** n)
+            for n in self.return_days
+        ]
