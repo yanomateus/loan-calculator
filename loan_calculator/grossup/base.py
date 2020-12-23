@@ -1,4 +1,11 @@
+from enum import Enum
+
 from loan_calculator.irr import approximate_irr
+
+
+class GrossupType(Enum):
+
+    iof = 'iof'
 
 
 class BaseGrossup(object):

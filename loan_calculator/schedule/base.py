@@ -1,3 +1,13 @@
+from enum import Enum
+
+
+class AmortizationScheduleType(Enum):
+
+    progressive_price_schedule = 'progressive-price-schedule'
+    regressive_price_schedule = 'regressive-price-schedule'
+    constant_amortization_schedule = 'constant-amortization-schedule'
+
+
 class BaseSchedule(object):
     """Base amortization schedule.
 
@@ -22,6 +32,8 @@ class BaseSchedule(object):
         List of integers representing the number of days since the loan
         was granted until the payments' due dates.
     """
+
+    schedule_type = None
 
     def __init__(self, principal, daily_interest_rate, return_days):
         """Initialize schedule."""

@@ -1,5 +1,7 @@
 from loan_calculator.pmt import constant_return_pmt
-from loan_calculator.schedule.base import BaseSchedule
+from loan_calculator.schedule.base import (
+    BaseSchedule, AmortizationScheduleType
+)
 
 
 class BasePriceSchedule(BaseSchedule):
@@ -106,6 +108,8 @@ class ProgressivePriceSchedule(BasePriceSchedule):
       - :math:`A_i = P - J_i`.
     """
 
+    schedule_type = AmortizationScheduleType.progressive_price_schedule
+
     def calculate_interest(self):
         """Calculate interest in each payment.
 
@@ -171,6 +175,8 @@ class RegressivePriceSchedule(BasePriceSchedule):
       - :math:`A_i = \\displaystyle\\frac{P}{(1+d)^{n_i}}`.
       - :math:`J_i = P(1 - \\displaystyle\\frac{P}{(1+d)^{n_i}})`.
     """
+
+    schedule_type = AmortizationScheduleType.regressive_price_schedule
 
     def calculate_amortizations(self):
         """Calculate the amortization due to each payment.

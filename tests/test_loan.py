@@ -3,7 +3,7 @@ import pytest
 from datetime import date
 
 from loan_calculator.loan import Loan
-
+from loan_calculator.schedule.base import AmortizationScheduleType
 
 args_ = (
     1000.0,
@@ -30,11 +30,7 @@ def test_very_large_year_size():
         assert loan.amortizations == pytest.approx([250.0, 250.0, 250.0, 250.0], rel=0.01)  # noqa
         assert loan.amortizations == pytest.approx(loan.amortizations)
 
-    for schedule in [
-        'progressive_price_schedule',
-        'regressive_price_schedule',
-        'constant_amortization_schedule',
-    ]:
+    for schedule in AmortizationScheduleType:
 
         _do_assert(schedule)
 
@@ -53,6 +49,6 @@ def test_grace_period_exceeds_loan_start():
 
 def test_unknown_amortization_schedule():
 
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
 
         Loan(*args_, amortization_schedule_type='foo')

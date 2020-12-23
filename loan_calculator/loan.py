@@ -1,10 +1,7 @@
 from datetime import timedelta
 
-from loan_calculator.schedule import (
-    ProgressivePriceSchedule,
-    RegressivePriceSchedule,
-    ConstantAmortizationSchedule,
-)
+from loan_calculator.schedule import SCHEDULE_TYPE_CLASS_MAP
+from loan_calculator.schedule.base import AmortizationScheduleType
 
 
 class Loan(object):
@@ -32,7 +29,7 @@ class Loan(object):
         A discriminator string indicating the amortization schedule to be
         adopted. The available schedules are progressive_price_schedule,
         regressive_price_schedule, constant_amortization_schedule.
-        (default progressive_price_schedule).
+        (default AmortizationScheduleType.progressive_price_schedule.value).
     """
 
     def __init__(
@@ -43,7 +40,9 @@ class Loan(object):
         return_dates,
         year_size=365,
         grace_period=0,
-        amortization_schedule_type='progressive_price_schedule'
+        amortization_schedule_type=(
+            AmortizationScheduleType.progressive_price_schedule.value
+        )
     ):
         """Initialize loan."""
 
@@ -65,19 +64,13 @@ class Loan(object):
         self.year_size = year_size
         self.grace_period = grace_period
 
-        self.amortization_schedule_type = amortization_schedule_type
+        self.amortization_schedule_type = (
+            AmortizationScheduleType(amortization_schedule_type)
+        )
 
-        if amortization_schedule_type == 'progressive_price_schedule':
-            self.amortization_schedule_cls = ProgressivePriceSchedule
-
-        elif amortization_schedule_type == 'regressive_price_schedule':
-            self.amortization_schedule_cls = RegressivePriceSchedule
-
-        elif amortization_schedule_type == 'constant_amortization_schedule':
-            self.amortization_schedule_cls = ConstantAmortizationSchedule
-
-        else:
-            raise TypeError('Unknown amortization schedule type.')
+        self.amortization_schedule_cls = SCHEDULE_TYPE_CLASS_MAP[
+            self.amortization_schedule_type
+        ]
 
         if any(
             self.capitalization_start_date >= r_date

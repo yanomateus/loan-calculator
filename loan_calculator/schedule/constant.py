@@ -1,4 +1,6 @@
-from loan_calculator.schedule.base import BaseSchedule
+from loan_calculator.schedule.base import (
+    BaseSchedule, AmortizationScheduleType
+)
 
 
 class ConstantAmortizationSchedule(BaseSchedule):
@@ -21,6 +23,8 @@ class ConstantAmortizationSchedule(BaseSchedule):
     - :math:`P_i = A + J_i`.
     - :math:`b_i = s - iA`.
     """
+
+    schedule_type = AmortizationScheduleType.constant_amortization_schedule
 
     def calculate_balance(self):
         """Calculate the balance after each payment.
