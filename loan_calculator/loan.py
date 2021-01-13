@@ -1,7 +1,13 @@
 from datetime import timedelta
+from enum import IntEnum
 
 from loan_calculator.schedule import SCHEDULE_TYPE_CLASS_MAP
 from loan_calculator.schedule.base import AmortizationScheduleType
+
+
+class YearSizeType(IntEnum):
+    banker = 360
+    commercial = 365
 
 
 class Loan(object):
@@ -38,7 +44,7 @@ class Loan(object):
         annual_interest_rate,
         start_date,
         return_dates,
-        year_size=365,
+        year_size=YearSizeType.commercial,
         grace_period=0,
         amortization_schedule_type=(
             AmortizationScheduleType.progressive_price_schedule.value
@@ -50,14 +56,15 @@ class Loan(object):
 
         self.annual_interest_rate = annual_interest_rate
 
-        self.daily_interest_rate = (
-            (1 + annual_interest_rate) ** (1.0 / year_size) - 1
+        from loan_calculator import (
+            convert_to_daily_interest_rate, InterestRateType
+        )
+        self.daily_interest_rate = convert_to_daily_interest_rate(
+            annual_interest_rate, InterestRateType.daily
         )
 
         self.start_date = start_date
-        self.capitalization_start_date = (
-            start_date + timedelta(grace_period)
-        )
+        self.capitalization_start_date = start_date + timedelta(grace_period)
 
         self.return_dates = return_dates
 

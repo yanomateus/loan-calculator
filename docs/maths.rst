@@ -9,6 +9,11 @@ PMT
 
 .. include:: ./pmt.rst
 
+Converting interest rates
+-------------------------
+
+.. include:: ./convert_interest_rates.rst
+
 Amortization Schedules
 ----------------------
 
