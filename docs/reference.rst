@@ -18,6 +18,11 @@ pmt
 .. automodule:: loan_calculator.pmt
     :members:
 
+interest_rate
+-------------
+.. automodule:: loan_calculator.interest_rate
+    :members:
+
 grossup.functions
 -----------------
 .. automodule:: loan_calculator.grossup.functions

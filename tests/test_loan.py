@@ -16,25 +16,6 @@ args_ = (
 )
 
 
-def test_very_large_year_size():
-    """Assert trivial year provides equal amortizations."""
-
-    def _do_assert(schedule_):
-        loan = Loan(
-            *args_,
-            year_size=100000,
-            grace_period=0,
-            amortization_schedule_type=schedule_
-        )
-
-        assert loan.amortizations == pytest.approx([250.0, 250.0, 250.0, 250.0], rel=0.01)  # noqa
-        assert loan.amortizations == pytest.approx(loan.amortizations)
-
-    for schedule in AmortizationScheduleType:
-
-        _do_assert(schedule)
-
-
 def test_grace_period_exceeds_loan_start():
 
     for date_ in args_[3]:
