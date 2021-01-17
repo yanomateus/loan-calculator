@@ -7,6 +7,8 @@ History
 
 * Implement Newton-Raphson based solver to approximate IRR
 * Remove dependency on `scipy` and `numpy`
+* Expand on grossup documentation
+* Implement function `interest_rate.convert_to_daily_interest_rate`
 
 1.1.0 (2020-10-15)
 ------------------
