@@ -24,18 +24,28 @@
 
 """Loan Calculator"""
 
-from loan_calculator.loan import Loan
+from loan_calculator.loan import Loan, YearSizeType
 from loan_calculator.utils import display_summary
 from loan_calculator.grossup.iof import IofGrossup
 from loan_calculator.projection import Projection
+from loan_calculator.schedule.base import AmortizationScheduleType
+from loan_calculator.grossup.base import GrossupType
+from loan_calculator.interest_rate import (
+    convert_to_daily_interest_rate, InterestRateType
+)
 
 __all__ = [
     'Loan',
+    'YearSizeType',
     'IofGrossup',
     'Projection',
+    'AmortizationScheduleType',
+    'GrossupType',
+    'convert_to_daily_interest_rate',
+    'InterestRateType',
     'display_summary',
 ]
 
 __author__ = """Mateus Yano"""
 __email__ = 'yano.mateus@gmail.com'
-__version__ = '1.1.0'
+__version__ = '1.2.0'

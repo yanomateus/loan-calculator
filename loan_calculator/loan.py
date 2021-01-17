@@ -1,10 +1,13 @@
 from datetime import timedelta
+from enum import IntEnum
 
-from loan_calculator.schedule import (
-    ProgressivePriceSchedule,
-    RegressivePriceSchedule,
-    ConstantAmortizationSchedule,
-)
+from loan_calculator.schedule import SCHEDULE_TYPE_CLASS_MAP
+from loan_calculator.schedule.base import AmortizationScheduleType
+
+
+class YearSizeType(IntEnum):
+    banker = 360
+    commercial = 365
 
 
 class Loan(object):
@@ -32,7 +35,7 @@ class Loan(object):
         A discriminator string indicating the amortization schedule to be
         adopted. The available schedules are progressive_price_schedule,
         regressive_price_schedule, constant_amortization_schedule.
-        (default progressive_price_schedule).
+        (default AmortizationScheduleType.progressive_price_schedule.value).
     """
 
     def __init__(
@@ -41,9 +44,11 @@ class Loan(object):
         annual_interest_rate,
         start_date,
         return_dates,
-        year_size=365,
+        year_size=YearSizeType.commercial,
         grace_period=0,
-        amortization_schedule_type='progressive_price_schedule'
+        amortization_schedule_type=(
+            AmortizationScheduleType.progressive_price_schedule.value
+        )
     ):
         """Initialize loan."""
 
@@ -51,33 +56,28 @@ class Loan(object):
 
         self.annual_interest_rate = annual_interest_rate
 
-        self.daily_interest_rate = (
-            (1 + annual_interest_rate) ** (1.0 / year_size) - 1
+        from loan_calculator import (
+            convert_to_daily_interest_rate, InterestRateType
+        )
+        self.daily_interest_rate = convert_to_daily_interest_rate(
+            annual_interest_rate, InterestRateType.daily
         )
 
         self.start_date = start_date
-        self.capitalization_start_date = (
-            start_date + timedelta(grace_period)
-        )
+        self.capitalization_start_date = start_date + timedelta(grace_period)
 
         self.return_dates = return_dates
 
         self.year_size = year_size
         self.grace_period = grace_period
 
-        self.amortization_schedule_type = amortization_schedule_type
+        self.amortization_schedule_type = (
+            AmortizationScheduleType(amortization_schedule_type)
+        )
 
-        if amortization_schedule_type == 'progressive_price_schedule':
-            self.amortization_schedule_cls = ProgressivePriceSchedule
-
-        elif amortization_schedule_type == 'regressive_price_schedule':
-            self.amortization_schedule_cls = RegressivePriceSchedule
-
-        elif amortization_schedule_type == 'constant_amortization_schedule':
-            self.amortization_schedule_cls = ConstantAmortizationSchedule
-
-        else:
-            raise TypeError('Unknown amortization schedule type.')
+        self.amortization_schedule_cls = SCHEDULE_TYPE_CLASS_MAP[
+            self.amortization_schedule_type
+        ]
 
         if any(
             self.capitalization_start_date >= r_date

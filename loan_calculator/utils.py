@@ -1,4 +1,4 @@
-import numpy as np
+from decimal import Decimal, ROUND_HALF_UP
 
 
 def display_summary(loan, reference_date=None):
@@ -62,8 +62,16 @@ def display_summary(loan, reference_date=None):
             trailing_line,
         ] + [
             body_line.format(
-                *[line[0].isoformat()]
-                + list(map(lambda n: np.round(n, 2), line[1:]))
+                line[0].isoformat(),
+                line[1],
+                *list(
+                    map(
+                        lambda n: Decimal(n).quantize(
+                            Decimal('0.01'),
+                            rounding=ROUND_HALF_UP
+                        ),
+                        line[2:])
+                )
             )
             for line in lines[1:]
         ] + [
