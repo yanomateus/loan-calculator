@@ -2,6 +2,13 @@
 History
 =======
 
+1.2.1 (2021-10-01)
+------------------
+
+* Bug fix: annual interest rate not being properly converted to a daily
+  interest rate
+
+
 1.2.0 (2020-12-17)
 ------------------
 
