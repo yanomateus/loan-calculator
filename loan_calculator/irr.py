@@ -59,6 +59,115 @@ def newton_raphson_solver(
     return iterating_point
 
 
+def return_polynomial_factory(net_principal, returns, return_days):
+    """Factory for a callable with point evaluation of the return polynomial.
+
+    The return polynomial for a loan with net principal :math:`s_\circ`,
+    returns :math:`r_1,r_2,\ldots,r_k` to be paid :math:`n_1,n_2,\ldots,n_k`
+    days after the loan is granted, respectively, is given by
+
+    .. math::
+
+        f(c) = s_\\circ (1 + c)^{n_k} - r_1 (1 + c)^{n_k-n_1} - \\cdots
+        - r_{k-1} (1 + c)^{n_k-n_{k-1}} - r_k.
+
+    This function builds and returns a callable implementing such polynomial.
+
+    Parameters
+    ----------
+    net_principal : float, required
+        The net principal of a grossed up loan.
+    returns : list of floats, required
+        Due payments that completely pay off the grossed up principal when
+        respectively applied for the given return days.
+    return_days : list of ints, required
+        List with the number of days since the taxable event (which is usually
+        a "loan granted" event) happened.
+
+    Returns
+    -------
+    Callable
+        Python callable implementing the return polynomial for the given
+        parameters
+    """
+
+    coefficients_vec = [net_principal] + [-1 * r for r in returns]
+
+    def return_polynomial(irr_):
+
+        powers_vec = [
+            (1 + irr_) ** (return_days[-1] - n) for n in [0] + return_days
+        ]
+
+        return sum(
+            coef * power
+            for coef, power in zip(coefficients_vec, powers_vec)
+        )
+
+    return return_polynomial
+
+
+def return_polynomial_derivative_factory(net_principal, returns, return_days):
+    """
+    Factory for a callable implementing point evaluation of the derivative of
+    the return polynomial for the given parameters.
+
+    The return polynomial for a loan with net principal :math:`s_\circ`,
+    returns :math:`r_1,r_2,\ldots,r_k` to be paid :math:`n_1,n_2,\ldots,n_k`
+    days after the loan is granted, respectively, is given by
+
+    .. math::
+
+        f(c) = s_\\circ (1 + c)^{n_k} - r_1 (1 + c)^{n_k-n_1} - \\cdots
+        - r_{k-1} (1 + c)^{n_k-n_{k-1}} - r_k.
+
+    Therefore, the derivative of :math:`f(c)` is given by
+
+    .. math::
+
+        f^\\prime (c) = n_k s_\\circ (1 + c)^{n_k - 1}
+        - \\sum_{i=1}^{k-1} (n_k - n_i) r_i (1 + c)^{n_k - n_i - 1}.
+
+    Parameters
+    ----------
+    net_principal : float, required
+        The net principal of a grossed up loan.
+    returns : list of floats, required
+        Due payments that completely pay off the grossed up principal when
+        respectively applied for the given return days.
+    return_days : list of ints, required
+        List with the number of days since the taxable event (which is usually
+        a "loan granted" event) happened.
+
+    Returns
+    -------
+    Callable
+        Python callable implementing the return polynomial for the given
+        parameters
+    """
+    derivative_coefficients_vec = [
+        net_principal * (return_days[-1] - return_days[-2])
+    ] + [
+        r * (return_days[-1] - r_day)
+        # last term does not need to be evaluated
+        for r, r_day in zip(returns[:-1], return_days[:-1])
+    ]
+
+    def return_polynomial_derivative(irr_):
+
+        powers_vec = [
+            (1 + irr_) ** (return_days[-1] - r_day - 1)
+            for r_day in return_days
+        ]
+
+        return sum(
+            coef * power
+            for coef, power in zip(derivative_coefficients_vec, powers_vec)
+        )
+
+    return return_polynomial_derivative
+
+
 def approximate_irr(
     net_principal,
     returns,
@@ -116,38 +225,11 @@ def approximate_irr(
         start point for the approximation of the IRR.
     """
 
-    coefficients_vec = [net_principal] + [-1 * r for r in returns]
+    return_polynomial = return_polynomial_factory(
+        net_principal, returns, return_days)
 
-    def return_polynomial(irr_):
-
-        powers_vec = [
-            (1 + irr_) ** (return_days[-1] - n) for n in [0] + return_days
-        ]
-
-        return sum(
-            coef * power
-            for coef, power in zip(coefficients_vec, powers_vec)
-        )
-
-    derivative_coefficients_vec = [
-        net_principal * (return_days[-1] - return_days[-2])
-    ] + [
-        r * (return_days[-1] - r_day)
-        # last term does not need to be evaluated
-        for r, r_day in zip(returns[:-1], return_days[:-1])
-    ]
-
-    def return_polynomial_derivative(irr_):
-
-        powers_vec = [
-            (1 + irr_) ** (return_days[-1] - r_day - 1)
-            for r_day in return_days
-        ]
-
-        return sum(
-            coef * power
-            for coef, power in zip(derivative_coefficients_vec, powers_vec)
-        )
+    return_polynomial_derivative = return_polynomial_derivative_factory(
+        net_principal, returns, return_days)
 
     return newton_raphson_solver(
         return_polynomial, return_polynomial_derivative, daily_interest_rate

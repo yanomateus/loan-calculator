@@ -1,6 +1,4 @@
-from enum import Enum
-
-from loan_calculator import YearSizeType
+from enum import Enum, IntEnum
 
 
 class InterestRateType(Enum):
@@ -9,6 +7,11 @@ class InterestRateType(Enum):
     semiannual = 'semiannual'
     monthly = 'monthly'
     quarterly = 'quarterly'
+
+
+class YearSizeType(IntEnum):
+    banker = 360
+    commercial = 365
 
 
 def convert_to_daily_interest_rate(
@@ -50,15 +53,15 @@ def convert_to_daily_interest_rate(
         return interest_rate_aliquot
     elif interest_rate_type == InterestRateType.annual:
         # 1 + a = (1 + d)^365 => d = (1 + a)^(1/365) - 1
-        return (1 + interest_rate_aliquot) ** (1 / year_size.value) - 1
+        return (1 + interest_rate_aliquot) ** (1 / year_size) - 1
     elif interest_rate_type == InterestRateType.semiannual:
         # (1 + s)^2 = (1 + d)^365 => d = (1 + s)^(2/365) - 1
-        return (1 + interest_rate_aliquot) ** (2 / year_size.value) - 1
+        return (1 + interest_rate_aliquot) ** (2 / year_size) - 1
     elif interest_rate_type == InterestRateType.monthly:
         # (1 + m)^12 = (1 + d)^365 => d = (1 + m)^(12/365) - 1
-        return (1 + interest_rate_aliquot) ** (12 / year_size.value) - 1
+        return (1 + interest_rate_aliquot) ** (12 / year_size) - 1
     elif interest_rate_type == InterestRateType.quarterly:
         # (1 + q)^4 = (1 + d)^365 => d = (1 + q)^(4/365) - 1
-        return (1 + interest_rate_aliquot) ** (4 / year_size.value) - 1
+        return (1 + interest_rate_aliquot) ** (4 / year_size) - 1
     else:
         raise TypeError('Unknown interest rate type')

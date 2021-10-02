@@ -3,7 +3,7 @@ import pytest
 from loan_calculator.interest_rate import (
     InterestRateType, convert_to_daily_interest_rate
 )
-from loan_calculator.loan import YearSizeType
+from loan_calculator import YearSizeType
 
 
 def test_convert_daily_interest_rate():

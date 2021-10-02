@@ -95,3 +95,27 @@ over it. Picking ``date(2020, 1, 15)`` as the taxable event, we obtain
     ... +------------+----------+--------------+--------------+--------------+--------------+
     ... |            |          |              |     10664.51 |      1616.41 |     12280.92 |
     ... +------------+----------+--------------+--------------+--------------+--------------+
+
+
+IRR
+---
+
+The internal return rate is the interest rate that the borrower actually
+experiences, since the only monetary amount the borrower receives is the net
+principal, while she has to pay off the grossed up principal. The internal
+return can be evaluated from the property `BaseGrossup.irr`, which will
+numerically approximate the IRR. For example, for the same loan
+as above, the IRR is given by
+
+::
+
+    >>> print(iof_grossup.irr)
+    ... 0.0019046654159656333
+
+Notice how this is slightly greater than the daily interest rate of the
+base loan:
+
+::
+
+    >>> print(iof_grossup.base_loan.daily_interest_rate)
+    ... 0.0011836655041597144
