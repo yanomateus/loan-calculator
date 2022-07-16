@@ -36,7 +36,7 @@ clean-build: ## remove build artifacts
 	rm -fr dist/
 	rm -fr .eggs/
 	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
+	find . -name '*.egg' -exec rm -fr {} +
 
 clean-pyc: ## remove Python file artifacts
 	find . -name '*.pyc' -exec rm -f {} +
@@ -50,8 +50,11 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
+## W503 Line break occurred before a binary operator
+## Line break occurred after a binary operator
+## W605 invalid escape sequence
 lint: ## check style with flake8
-	flake8 loan_calculator tests
+	flake8 --ignore=W605,W503,W504 loan_calculator tests
 
 test: ## run tests quickly with the default Python
 	pytest

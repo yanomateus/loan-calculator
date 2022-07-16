@@ -25,7 +25,7 @@ interest rate :math:`d_m` is given by
     d_m = (1 + m)^\frac{12}{365} - 1
 
 and for a quarterly interest rate :math:`q`, the equivalent daily interest rate
-is :math:`d_q` is given by
+:math:`d_q` is given by
 
 .. math::
 

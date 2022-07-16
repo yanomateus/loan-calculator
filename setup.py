@@ -32,6 +32,8 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
     description="Loan Calculator",
     install_requires=[],
@@ -45,6 +47,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/yanomateus/loan-calculator',
-    version='1.2.1',
+    version='1.2.2',
     zip_safe=False,
 )

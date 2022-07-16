@@ -2,12 +2,16 @@
 History
 =======
 
+1.2.2 (2022-07-16)
+------------------
+
+* Bug fix: erroneous .to_list calls at utils.display_loan was raising AttributeError
+
 1.2.1 (2021-10-01)
 ------------------
 
 * Bug fix: annual interest rate not being properly converted to a daily
   interest rate
-
 
 1.2.0 (2020-12-17)
 ------------------

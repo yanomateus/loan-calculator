@@ -7,7 +7,7 @@ amount comprehending services fees and due taxes.
 
 It seems fairly reasonable to assume the service fee is simply an aliquot
 applied over the principal so, if :math:`s` is the principal and :math:`\gamma`
-is the service fee aliquot, then the service fee given by :math:`\gamma s`. On
+is the service fee aliquot, then the service fee is given by :math:`\gamma s`. On
 the other hand, it is hard to pin down a reasonable and generic expression
 for due taxes, since they are very context bound and their rules might be
 revised as laws are amended. Therefore, loans being granted in different

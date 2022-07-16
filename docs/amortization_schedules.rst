@@ -62,7 +62,7 @@ of amortizations.
 For example, consider a principal of R$ :math:`8530.20`, with interest rate of
 :math:`0.0985\%` per day (which yields around :math:`3\%` every :math:`30` days)
 and paid with :math:`10` instalments. Suppose payments should be made every
-30 days. The regressive price schedule of such a loan is presented in the table
+30 days. The regressive Price schedule of such a loan is presented in the table
 below.
 
 +-----+------+---------+--------------+-----------+----------+
@@ -101,7 +101,7 @@ of amortizations and interests are given by
 
 *   :math:`A_i = P\ \displaystyle\frac{1}{(1+d)^{n_{k-i+1}}},
     \ \mathrm{for\ all}\ i,1\leq i\leq k`,
-*   :math:`J_I = P\ (1 - \displaystyle\frac{1}{(1+d)^{n_{k-i+1}}}),
+*   :math:`J_i = P\ (1 - \displaystyle\frac{1}{(1+d)^{n_{k-i+1}}}),
     \ \mathrm{for\ all}\ i,1\leq i\leq k`,
 
 respectively.
@@ -153,7 +153,7 @@ the due payment. These are given by
 
 respectively. Note that the payments form a decreasing sequence, since the
 interest part of each payment is calculate over an ever decreasing balance.
-Moreover the balance decrease at a constant rate, due to the constant
+Moreover the balance decreases at a constant rate, due to the constant
 amortization.
 
 For example, consider a principal of R$ :math:`800.00`, with interest rate of
