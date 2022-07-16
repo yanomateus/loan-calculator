@@ -23,9 +23,9 @@ def display_summary(loan, reference_date=None):
             map(lambda d: (d - reference_date).days,
                 dates),
             loan.balance,
-            [''] + loan.amortizations.tolist(),
-            [''] + loan.interest_payments.tolist(),
-            [''] + loan.due_payments.tolist(),
+            [''] + loan.amortizations,
+            [''] + loan.interest_payments,
+            [''] + loan.due_payments,
         )
     )
 
